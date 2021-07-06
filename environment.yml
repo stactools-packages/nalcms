@@ -1,4 +1,4 @@
-name: stactools-package
+name: stactools-nalcms
 channels:
   - conda-forge
   - defaults
