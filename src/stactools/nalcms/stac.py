@@ -162,3 +162,174 @@ def create_item(nc_href: str, cog_href: str) -> Item:
     )
 
     return item
+
+
+def create_collection(metadata: dict):
+    # Creates a STAC collection for a Natural Resources Canada Land Cover dataset
+
+    # title = metadata.get("tiff_metadata").get("dct:title")
+
+    utc = pytz.utc
+    year = 2010
+    dataset_datetime = utc.localize(datetime.strptime(year, "%Y"))
+
+    end_datetime = dataset_datetime + relativedelta(years=5)
+
+    start_datetime = dataset_datetime
+    end_datetime = end_datetime
+
+    bbox = [-170, 14, -50, 84]  # from metadata file
+
+    # polygon = shapely.geometry.box(*bbox, ccw=True)
+    # coordinates = [list(i) for i in list(polygon.exterior.coords)]
+
+    # geometry = {"type": "Polygon", "coordinates": [coordinates]}
+
+    collection = pystac.Collection(
+        id=ID,
+        title=TITLE,
+        description=DESCRIPTION,
+        providers=[PROVIDER],
+        license=LICENSE,
+        extent=pystac.Extent(
+            pystac.SpatialExtent(bbox),
+            pystac.TemporalExtent([start_datetime, end_datetime])),
+        catalog_type=pystac.CatalogType.RELATIVE_PUBLISHED,
+    )
+
+    # Don't have a license link yet
+    # collection.add_link(LICENSE_LINK)
+
+    return collection
+
+
+def create_item(reg, gsd, year):
+    """
+    TODO
+    """
+    bbox = EXTENTS[reg]
+    polygon = shapely.geometry.box(*bbox, ccw=True)
+    coordinates = [list(i) for i in list(polygon.exterior.coords)]
+    geometry = {"type": "Polygon", "coordinates": [coordinates]}
+
+    years = year.split("-")
+    diff = "change " if "-" in year else ""
+    properties = {
+        "title": f"{reg} land cover {diff}({year}, {gsd} m)",
+        "description":
+        f"Land cover {diff}for {year} over {REGIONS[reg]} ({gsd} m)",
+        "start_datetime": datetime.strptime(years[0], "%Y"),
+        "end_datetime": datetime.strptime(years[-1], "%Y"),
+        "gsd": gsd,
+    }
+
+    # Create item
+    item = pystac.Item(
+        id=f"{reg}_{year}_{gsd}m",
+        geometry=geometry,
+        bbox=bbox,
+        datetime=datetime.strptime(years[0], "%Y"),
+        properties=properties,
+        stac_extensions=[
+            "https://stac-extensions.github.io/projection/v1.0.0/schema.json"
+        ])
+
+    # Create metadata asset
+    metadata_href = os.path.join(HREF_DIR, HREFS_METADATA[f"{gsd}m_{year}"])
+    item.add_asset(
+        "metadata",
+        pystac.Asset(
+            href=metadata_href,
+            media_type=MediaType.JSON,
+            roles=["metadata"],
+            title="Metadata for land cover {diff}for {year} ({gsd} m)",
+        ))
+
+    # Create source data asset
+    data_href = os.path.join(HREF_DIR, HREFS_ZIP[f"{gsd}m_{year}_{reg}"])
+    item.add_asset(
+        "data",
+        pystac.Asset(
+            href=data_href,
+            media_type="application/zip",
+            roles=["data"],
+            title=
+            "Data for land cover {diff}over {REGIONS[reg]} for {year} ({gsd} m)"
+        ))
+
+    # Include projection information
+    proj_key = f"{gsd}m_{year}_{reg}"
+    proj_ext = ProjectionExtension.ext(item)
+    proj_ext.epsg = PROJECTIONS[proj_key]["epsg"]
+    proj_ext.transform = PROJECTIONS[proj_key]["transform"]
+    proj_ext.bbox = PROJECTIONS[proj_key]["bounds"]
+    proj_ext.wkt2 = PROJECTIONS[proj_key]["wkt"]
+
+    return item
+
+
+def create_region_collection(reg):
+    """
+    TODO
+    """
+    region = Collection(
+        id=f"NALCMS_{reg}",
+        description=f"Land classification for {REGIONS[reg]}",
+        extent=EXTENTS[reg],
+        title=f"NALCMS for {REGIONS[reg]}",
+        stac_extensions=None,
+        license=LICENSE,
+        summaries=Summaries({
+            "platform":
+            sum([v["platform"] for v in SATELLITES.values()], []),
+            "instruments":
+            sum([v["instruments"] for v in SATELLITES.values()], []),
+            "constellation":
+            sum([v["constellation"] for v in SATELLITES.values()], []),
+            "gsd":
+            GSDS,
+        }))
+
+    return region
+
+
+def create_nalcms_collection():
+    """
+    TODO
+    """
+    nalcms = Collection(
+        id=ID,
+        description=DESCRIPTION,
+        extent=EXTENTS["NA"],
+        title=TITLE,
+        stac_extensions=[
+            "https://stac-extensions.github.io/projection/v1.0.0/schema.json",
+        ],
+        license=LICENSE,
+        keywords=KEYWORDS,
+        providers=PROVIDER,
+        summaries=Summaries({
+            "platform":
+            sum([v["platform"] for v in SATELLITES.values()], []),
+            "instruments":
+            sum([v["instruments"] for v in SATELLITES.values()], []),
+            "constellation":
+            sum([v["constellation"] for v in SATELLITES.values()], []),
+            "gsd":
+            GSDS,
+        }))
+    proj_ext = SummariesProjectionExtension(nalcms)
+    proj_ext.epsg = list(PROJECTIONS.values())
+    nalcms.add_link(LICENSE_LINK)
+
+    for reg in REGIONS.keys():
+        region = create_region_collection(reg)
+        nalcms.add_child(region)
+
+        for gsd, year in [(g, y) for g in GSDS for y in YEARS]:
+            if (gsd == 250) and (reg != "NA"):
+                continue
+            item = create_item(reg, gsd, year)
+            region.add_child(item)
+
+    return nalcms
