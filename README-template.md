@@ -3,15 +3,15 @@
 - Name: nalcms
 - Package: `stactools.nalcms`
 - PyPI: https://pypi.org/project/stactools-nalcms/
-- Owner: @githubusername
-- Dataset homepage: http://example.com
+- Owner: @jbants
+- Dataset homepage: http://www.cec.org/north-american-land-change-monitoring-system/
 - STAC extensions used:
   - [proj](https://github.com/stac-extensions/projection/)
+  - [scientific](https://github.com/stac-extensions/scientific/)
 - Extra fields:
   - `nalcms:custom`: A custom attribute
 
-A short description of the package and its usage.
-
+This package is intended to help describe the National Land Change Monitoring System (NALCMS) data hosted by the Commission for Environmental Cooperation (CEC) as [STAC](https://github.com/stac-spec).
 ## Examples
 
 ### STAC objects
