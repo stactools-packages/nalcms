@@ -121,15 +121,12 @@ def create_item(nc_href: str, cog_href: str) -> Item:
         "coordinates": [[[-180, -90], [180, -90], [180, 90], [-180, 90], [-180, -90]]],
     }
 
-    try:
-        item_year = re.findall(r"\d{4}", properties["title"])[0]
-    except IndexError:
-        raise ValueError("Unable to obtain year from the dataset title attribute")
-
-    item_datetime = datetime(int(item_year), 1, 1)
-
-    item = Item(
-        id=f"{SEABED_2030_ID}-gebco-{item_year}",
+    # Create item
+    item = pystac.Item(
+        id=item_id,
+        geometry=geometry,
+        bbox=[float(x) for x in bbox],
+        datetime=dataset_datetime,
         properties=properties,
         geometry=global_geom,
         bbox=SPATIAL_EXTENT,
@@ -170,13 +167,11 @@ def create_collection(metadata: dict):
     # title = metadata.get("tiff_metadata").get("dct:title")
 
     utc = pytz.utc
-    year = 2010
+    year = "2010"
     dataset_datetime = utc.localize(datetime.strptime(year, "%Y"))
 
-    end_datetime = dataset_datetime + relativedelta(years=5)
-
     start_datetime = dataset_datetime
-    end_datetime = end_datetime
+    end_datetime = start_datetime + relativedelta(years=5)
 
     bbox = [-170, 14, -50, 84]  # from metadata file
 
@@ -192,8 +187,9 @@ def create_collection(metadata: dict):
         providers=[PROVIDER],
         license=LICENSE,
         extent=pystac.Extent(
-            pystac.SpatialExtent(bbox),
-            pystac.TemporalExtent([start_datetime, end_datetime])),
+            pystac.SpatialExtent([[float(x) for x in bbox]]),
+            pystac.TemporalExtent(
+                [[start_datetime or None, end_datetime or None]])),
         catalog_type=pystac.CatalogType.RELATIVE_PUBLISHED,
     )
 
