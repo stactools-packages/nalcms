@@ -1,14 +1,14 @@
-# stactools-ephemeral
+# stactools-nalcms
 
-- Name: ephemeral
-- Package: `stactools.ephemeral`
-- PyPI: https://pypi.org/project/stactools-ephemeral/
+- Name: nalcms
+- Package: `stactools.nalcms`
+- PyPI: https://pypi.org/project/stactools-nalcms/
 - Owner: @githubusername
 - Dataset homepage: http://example.com
 - STAC extensions used:
   - [proj](https://github.com/stac-extensions/projection/)
 - Extra fields:
-  - `ephemeral:custom`: A custom attribute
+  - `nalcms:custom`: A custom attribute
 
 A short description of the package and its usage.
 

@@ -1,6 +1,6 @@
 import stactools.core
 
-from stactools.nalcms import stac, constants, assets
+from stactools.nalcms import stac, assets, constants
 
 stactools.core.use_fsspec()
 
