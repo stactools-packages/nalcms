@@ -18,16 +18,9 @@ Build and serve documentation from a docker container with all prerequisites ins
 if [ "${BASH_SOURCE[0]}" = "${0}" ]; then
     docker run --rm -it \
         -p 8000:8000 \
-<<<<<<< HEAD
-        -v `pwd`:/opt/stactools-nalcms \
-        -w /opt/stactools-nalcms/docs \
-        --entrypoint /bin/bash \
-        stacutils/stactools-nalcms:latest-dev \
-=======
         -v `pwd`:$DOCKER_WORKDIR \
         -w $DOCKER_WORKDIR/docs \
         --entrypoint /bin/bash \
         $DOCKER_REGISTRY/$DOCKER_ORG/$DOCKER_REPO:$DOCKER_TAG_DEV \
->>>>>>> working
         -c "make livehtml"
 fi
