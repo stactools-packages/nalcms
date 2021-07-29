@@ -1,8 +1,8 @@
 # flake8: noqa
 
 # from pyproj import CRS
-from pystac import Provider
-# from pystac import Link
+from pystac import Provider, ProviderRole
+from pystac import Link
 
 ID = "nalcms"
 # EPSG = 3978
@@ -25,7 +25,7 @@ have been assessed from Land Cover maps at 30 meters resolution
 PROVIDER = Provider(
     name=
     "Natural Resources Canada/ Canada Centre Mapping and Earth Observation",
-    roles=["producer", "processor", "host"],
+    roles=[ProviderRole.PRODUCER, ProviderRole.PROCESSOR, ProviderRole.HOST],
     url=
     "https://www.nrcan.gc.ca/maps-tools-publications/satellite-imagery-air-photos/application-development/land-cover-products/21759"
 )
