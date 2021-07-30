@@ -24,7 +24,7 @@ if [ "${BASH_SOURCE[0]}" = "${0}" ]; then
         # Text formatting
         editorconfig-checker --exclude "$EC_EXCLUDE"
         # Code formatting
-        yapf -dpr ${DIRS_TO_CHECK[@]}
+        yapf -dpr --style='{based_on_style: pep8; column_limit: 100}}' ${DIRS_TO_CHECK[@]}
         # Lint
         flake8 ${DIRS_TO_CHECK[@]}
         # Type checking

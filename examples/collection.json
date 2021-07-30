@@ -11,7 +11,7 @@
     },
     {
       "rel": "self",
-      "href": "./collection.json",
+      "href": "/home/james/Projects/Community/STAC/stactools/nalcms/examples/collection.json",
       "type": "application/json"
     }
   ],
@@ -89,7 +89,7 @@
       ]
     }
   },
-  "license": "PDDL-1.0",
+  "license": "proprietary",
   "providers": [
     {
       "name": "Natural Resources Canada / Canada Centre Mapping and Earth Observation",
@@ -133,11 +133,56 @@
     }
   ],
   "assets": {
-    "metadata": {
+    "30m_2010-2015 metadata": {
+      "href": "http://www.cec.org/wp-content/uploads/wpallimport/files/Atlas/Files/land_cover_30m_2010-2015_landsat/metadata_nalcms_2010_2015_30m.doc",
+      "type": "application/msword",
+      "title": "NALCMS 30m_2010-2015 Metadata",
+      "description": "NALCMS created metadata.",
+      "roles": [
+        "metadata"
+      ]
+    },
+    "30m_2015 metadata": {
+      "href": "http://www.cec.org/wp-content/uploads/wpallimport/files/Atlas/Files/2010nalcms30m/nalcms_2015_30m_metadata_v2.doc",
+      "type": "application/msword",
+      "title": "NALCMS 30m_2015 Metadata",
+      "description": "NALCMS created metadata.",
+      "roles": [
+        "metadata"
+      ]
+    },
+    "30m_2010 metadata": {
+      "href": "http://www.cec.org/wp-content/uploads/wpallimport/files/Atlas/Files/2010nalcms30m/nalcms_2010_30m_metadata.doc",
+      "type": "application/msword",
+      "title": "NALCMS 30m_2010 Metadata",
+      "description": "NALCMS created metadata.",
+      "roles": [
+        "metadata"
+      ]
+    },
+    "250m_2005-2010 metadata": {
       "href": "http://www.cec.org/wp-content/uploads/wpallimport/files/Atlas/Files/Land_Cover_05_10/Metadata_NALCMS_2005_2010.doc",
       "type": "application/msword",
-      "title": "NALCMS Metadata",
-      "description": "Metadata from NALCSM.",
+      "title": "NALCMS 250m_2005-2010 Metadata",
+      "description": "NALCMS created metadata.",
+      "roles": [
+        "metadata"
+      ]
+    },
+    "250m_2010 metadata": {
+      "href": "http://www.cec.org/wp-content/uploads/wpallimport/files/Atlas/Files/Land_Cover_2010/Metadata_NALCMS_2010v2.doc",
+      "type": "application/msword",
+      "title": "NALCMS 250m_2010 Metadata",
+      "description": "NALCMS created metadata.",
+      "roles": [
+        "metadata"
+      ]
+    },
+    "250m_2005 metadata": {
+      "href": "http://www.cec.org/wp-content/uploads/wpallimport/files/Atlas/Files/Land_Cover_2005/Metadata_NALCMS_2005_v3.doc",
+      "type": "application/msword",
+      "title": "NALCMS 250m_2005 Metadata",
+      "description": "NALCMS created metadata.",
       "roles": [
         "metadata"
       ]
