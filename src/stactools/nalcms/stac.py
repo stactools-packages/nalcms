@@ -17,9 +17,19 @@ from pystac.extensions.item_assets import ItemAssetsExtension
 from pystac.extensions.scientific import ScientificExtension
 
 from stactools.nalcms.constants import (
-    COLLECTION_ID, SPATIAL_EXTENT, TEMPORAL_EXTENT,COLLECTION_LICENSE,
-    COLLECTION_TITLE, COLLECTION_DESCRIPTION, COLLECTION_EPSG, NRCAN_PROVIDER,
-    INEGI_PROVIDER, CONAFOR_PROVIDER, USGS_PROVIDER, CEC_PROVIDER)
+    COLLECTION_ID,
+    SPATIAL_EXTENT,
+    TEMPORAL_EXTENT,
+    COLLECTION_LICENSE,
+    COLLECTION_TITLE,
+    COLLECTION_DESCRIPTION,
+    COLLECTION_EPSG,
+    NRCAN_PROVIDER,
+    INEGI_PROVIDER,
+    CONAFOR_PROVIDER,
+    USGS_PROVIDER,
+    CEC_PROVIDER,
+)
 
 from stactools.nalcms.assets import ITEM_ASSETS
 
@@ -29,7 +39,7 @@ logger = logging.getLogger(__name__)
 def create_collection() -> Collection:
     """Create a STAC Collection for North American Land Change Monitoring System Data
 
-    These are cartographic products and are intended to be interpreted at the resolution identified. 
+    These are cartographic products and are intended to be interpreted at the resolution identified.
     Read the original metadata for data caveats.
 
     Returns:
@@ -50,7 +60,7 @@ def create_collection() -> Collection:
             INEGI_PROVIDER,
             CONAFOR_PROVIDER,
             USGS_PROVIDER,
-            CEC_PROVIDER
+            CEC_PROVIDER,
         ],
         extent=extent,
         catalog_type=CatalogType.RELATIVE_PUBLISHED,
@@ -70,8 +80,7 @@ def create_collection() -> Collection:
                 "http://www.cec.org/wp-content/uploads/wpallimport/files/Atlas/Files/Land_Cover_05_10/Metadata_NALCMS_2005_2010.doc"  # noqa
             ),
             title="NALCMS Metadata",
-            description=(
-                "Metadata from NALCSM."),
+            description=("Metadata from NALCSM."),
             media_type="application/msword",
             roles=["metadata"],
         ),
@@ -108,17 +117,14 @@ def create_item(nc_href: str, cog_href: str) -> Item:
         y_cellsize = 180.0 / float(dims["lat"].size)
 
     global_geom = {
-        "type":
-        "Polygon",
-        "coordinates": [[[-180, -90], [180, -90], [180, 90], [-180, 90],
-                         [-180, -90]]],
+        "type": "Polygon",
+        "coordinates": [[[-180, -90], [180, -90], [180, 90], [-180, 90], [-180, -90]]],
     }
 
     try:
         item_year = re.findall(r"\d{4}", properties["title"])[0]
     except IndexError:
-        raise ValueError(
-            "Unable to obtain year from the dataset title attribute")
+        raise ValueError("Unable to obtain year from the dataset title attribute")
 
     item_datetime = datetime(int(item_year), 1, 1)
 

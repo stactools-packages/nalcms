@@ -9,10 +9,10 @@ logger = logging.getLogger(__name__)
 
 def create_nalcms_command(cli):
     """Creates the nalcms command line utility."""
+
     @cli.group(
         "nalcms",
-        short_help=  # noqa: E251
-        "Commands for working with North American Land Change Monitoring System data",
+        short_help="Commands for working with North American Land Change Monitoring System data",  # noqa: E251
     )
     def nalcms():
         pass
