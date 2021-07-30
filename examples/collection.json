@@ -1,0 +1,146 @@
+{
+  "type": "Collection",
+  "id": "nalcms",
+  "stac_version": "1.0.0",
+  "description": "Land Cover change maps shows class transitions from 2010 to 2015 over Canada, Alaska, the conterminous United States, and Mexico. Changes have been assessed from Land Cover maps at 30 meters resolution.",
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "self",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "stac_extensions": [
+    "https://stac-extensions.github.io/item-assets/v1.0.0/schema.json"
+  ],
+  "item_assets": {
+    "landcover_change_30m": {
+      "title": "Land Cover Change 30m, 2010-2015 (Landsat)",
+      "description": "This map demonstrates land cover change between 2010 and 2015 in North America at a spatial resolution of 30 meters. The dataset shows the 2010-2015 changes between the nineteen Level II land cover classes, which were defined using the Land Cover Classification System (LCCS) standard developed by the Food and Agriculture Organization (FAO) of United Nations.",
+      "type": "image/tiff; application=geotiff; profile=cloud-optimized",
+      "roles": [
+        "data"
+      ]
+    },
+    "landcover_2015_30m": {
+      "title": "Land Cover 30m, 2015 (Landsat and RapidEye)",
+      "description": "This map of North American land cover at a spatial resolution of 30 meters provides a harmonized view of the physical cover of Earth\u2019s surface across the continent based on 2015 Landsat satellite imagery for Canada and the United States, and RapidEye imagery for Mexico. Nineteen Level II land cover classes were defined using the Land Cover Classification System (LCCS) standard developed by the Food and Agriculture Organization (FAO) of the United Nations.",
+      "type": "image/tiff; application=geotiff; profile=cloud-optimized",
+      "roles": [
+        "data"
+      ]
+    },
+    "landcover_2010_30m": {
+      "title": "Land Cover, 2010 (Landsat, 30m)",
+      "description": "This map of North American land cover at a spatial resolution of 30 meters provides a harmonized view of the physical cover of Earth\u2019s surface across the continent based on 2010 Landsat satellite imagery. Nineteen Level II land cover classes were defined using the Land Cover Classification System (LCCS) standard developed by the Food and Agriculture Organization (FAO) of United Nations.",
+      "type": "image/tiff; application=geotiff; profile=cloud-optimized",
+      "roles": [
+        "data"
+      ]
+    },
+    "landcover_change_250m": {
+      "title": "Land Cover Change, 2005-2010 (MODIS, 250m)",
+      "description": "This map demonstrates land cover change between 2005 and 2010 in North America at a spatial resolution of 250 meters. The dataset shows the 2005-2010 changes between the nineteen Level II land cover classes, which were defined using the Land Cover Classification System (LCCS) standard developed by the Food and Agriculture Organization (FAO) of United Nations.",
+      "type": "image/tiff; application=geotiff; profile=cloud-optimized",
+      "roles": [
+        "data"
+      ]
+    },
+    "landcover_2010_250m": {
+      "title": "Land Cover, 2010 (MODIS, 250m)",
+      "description": "This map of North American land cover at a spatial resolution of 250 meters provides a harmonized view of the physical cover of Earth\u2019s surface across the continent based on 2010 Moderate Resolution Imaging Spectroradiometer (MODIS) satellite imagery. Nineteen Level II land cover classes were defined using the Land Cover Classification System (LCCS) standard developed by the Food and Agriculture Organization (FAO) of United Nations.",
+      "type": "image/tiff; application=geotiff; profile=cloud-optimized",
+      "roles": [
+        "data"
+      ]
+    },
+    "landcover_2005_250m": {
+      "title": "Land Cover, 2005 (MODIS, 250m)",
+      "description": "This map of North American land cover at a spatial resolution of 250 meters provides a harmonized view of the physical cover of Earth\u2019s surface across the continent based on 2005 Moderate Resolution Imaging Spectroradiometer (MODIS) satellite imagery. Nineteen Level II land cover classes were defined using the Land Cover Classification System (LCCS) standard developed by the Food and Agriculture Organization (FAO) of United Nations.",
+      "type": "image/tiff; application=geotiff; profile=cloud-optimized",
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "title": "North American Land Change Monitoring System data",
+  "extent": {
+    "spatial": {
+      "bbox": [
+        [
+          -170.0,
+          -50.0,
+          84.0,
+          14.0
+        ]
+      ]
+    },
+    "temporal": {
+      "interval": [
+        [
+          "2005-01-01T00:00:00Z",
+          null
+        ]
+      ]
+    }
+  },
+  "license": "PDDL-1.0",
+  "providers": [
+    {
+      "name": "Natural Resources Canada / Canada Centre Mapping and Earth Observation",
+      "roles": [
+        "producer",
+        "processor"
+      ],
+      "url": "https://www.nrcan.gc.ca"
+    },
+    {
+      "name": "Instituto Nacional de Estad\u00edstica y Geograf\u00eda",
+      "roles": [
+        "producer",
+        "processor"
+      ],
+      "url": "https://www.inegi.org.mx/"
+    },
+    {
+      "name": "Comisi\u00f3n Nacional Forestal",
+      "roles": [
+        "producer",
+        "processor"
+      ],
+      "url": "https://www.gob.mx/conafor"
+    },
+    {
+      "name": "U.S. Geological Survey",
+      "roles": [
+        "producer",
+        "processor"
+      ],
+      "url": "https://www.usgs.gov"
+    },
+    {
+      "name": "Commission for Environmental Cooperation",
+      "roles": [
+        "producer",
+        "processor"
+      ],
+      "url": "http://www.cec.org/north-american-environmental-atlas/"
+    }
+  ],
+  "assets": {
+    "metadata": {
+      "href": "http://www.cec.org/wp-content/uploads/wpallimport/files/Atlas/Files/Land_Cover_05_10/Metadata_NALCMS_2005_2010.doc",
+      "type": "application/msword",
+      "title": "NALCMS Metadata",
+      "description": "Metadata from NALCSM.",
+      "roles": [
+        "metadata"
+      ]
+    }
+  }
+}

@@ -1,17 +1,17 @@
-# stactools-nalcms
+# stactools-ephemeral
 
-- Name: nalcms
-- Package: `stactools.nalcms`
-- PyPI: https://pypi.org/project/stactools-nalcms/
-- Owner: @jbants
-- Dataset homepage: http://www.cec.org/north-american-land-change-monitoring-system/
+- Name: ephemeral
+- Package: `stactools.ephemeral`
+- PyPI: https://pypi.org/project/stactools-ephemeral/
+- Owner: @githubusername
+- Dataset homepage: http://example.com
 - STAC extensions used:
   - [proj](https://github.com/stac-extensions/projection/)
-  - [scientific](https://github.com/stac-extensions/scientific/)
 - Extra fields:
-  - `nalcms:custom`: A custom attribute
+  - `ephemeral:custom`: A custom attribute
 
-This package is intended to help describe the National Land Change Monitoring System (NALCMS) data hosted by the Commission for Environmental Cooperation (CEC) as [STAC](https://github.com/stac-spec).
+A short description of the package and its usage.
+
 ## Examples
 
 ### STAC objects
