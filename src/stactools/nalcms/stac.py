@@ -17,8 +17,8 @@ from pystac.extensions.item_assets import ItemAssetsExtension
 from pystac.extensions.scientific import ScientificExtension
 
 from stactools.nalcms.constants import (
-    COLLECTION_ID, SPATIAL_EXTENT, TEMPORAL_EXTENT, PROVIDER, COLLECTION_TITLE,
-    COLLECTION_DESCRIPTION, LICENSE, COLLECTION_EPSG, NRCAN_PROVIDER,
+    COLLECTION_ID, SPATIAL_EXTENT, TEMPORAL_EXTENT,COLLECTION_LICENSE,
+    COLLECTION_TITLE, COLLECTION_DESCRIPTION, COLLECTION_EPSG, NRCAN_PROVIDER,
     INEGI_PROVIDER, CONAFOR_PROVIDER, USGS_PROVIDER, CEC_PROVIDER)
 
 from stactools.nalcms.assets import ITEM_ASSETS
@@ -29,7 +29,8 @@ logger = logging.getLogger(__name__)
 def create_collection() -> Collection:
     """Create a STAC Collection for North American Land Change Monitoring System Data
 
-    These are cartographic products and are intended to be interpreted at the resolution identified.
+    These are cartographic products and are intended to be interpreted at the resolution identified. 
+    Read the original metadata for data caveats.
 
     Returns:
         Collection: STAC Collection object
@@ -43,7 +44,7 @@ def create_collection() -> Collection:
         id=COLLECTION_ID,
         title=COLLECTION_TITLE,
         description=COLLECTION_DESCRIPTION,
-        license=LICENSE,
+        license=COLLECTION_LICENSE,
         providers=[
             NRCAN_PROVIDER,
             INEGI_PROVIDER,
@@ -63,15 +64,15 @@ def create_collection() -> Collection:
     item_assets.item_assets = ITEM_ASSETS
 
     collection.add_asset(
-        "guide",
+        "metadata",
         Asset(
             href=(
-                "https://storage.cloud.google.com/global-surface-water/downloads_ancillary/DataUsersGuidev2020.pdf"  # noqa
+                "http://www.cec.org/wp-content/uploads/wpallimport/files/Atlas/Files/Land_Cover_05_10/Metadata_NALCMS_2005_2010.doc"  # noqa
             ),
-            title="User Guide",
+            title="NALCMS Metadata",
             description=(
-                "Data user guide and description of the JRC GSW datasets."),
-            media_type="application/pdf",
+                "Metadata from NALCSM."),
+            media_type="application/msword",
             roles=["metadata"],
         ),
     )
