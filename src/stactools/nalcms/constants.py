@@ -30,6 +30,7 @@ INEGI_PROVIDER = Provider(
     name="Instituto Nacional de Estadística y Geografía",
     roles=[ProviderRole("producer"), ProviderRole("processor")],
     url="https://www.inegi.org.mx/",
+
 )
 
 CONAFOR_PROVIDER = Provider(
