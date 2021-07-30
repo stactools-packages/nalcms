@@ -1,31 +1,65 @@
-# flake8: noqa
-
-# from pyproj import CRS
+ 
+from datetime import datetime
 from pystac import Provider
-# from pystac import Link
 
-ID = "nalcms"
-# EPSG = 3978
-# CRS = CRS.from_epsg(EPSG)
-TITLE = "North American Land Change Monitoring System data"
-LICENSE = "proprietary"
 
-# Cant find a license link for this dataset
-# LICENSE_LINK = Link(
-#     rel="license",
-#     target="",
-#     title="",
-# )
+COLLECTION_ID = "nalcms"
+COLLECTION_EPSG = 3978
+COLLECTION_TITLE = "North American Land Change Monitoring System data"
+COLLECTION_LICENSE = "proprietary"
 
-DESCRIPTION = """This Land Cover change map shows class transitions from 2010 to 2015
-over Canada, Alaska, the conterminous United States and Mexico. Changes
-have been assessed from Land Cover maps at 30 meters resolution
-"""
+COLLECTION_DESCRIPTION = (
+    "Land Cover change maps shows class transitions from 2010 to 2015 over Canada, Alaska, the conterminous United States, and Mexico. "
+    "Changes have been assessed from Land Cover maps at 30 meters resolution."
+)
 
-PROVIDER = Provider(
+#[xmin, ymin, xmax, ymax]]
+#[west, east, noth, south]
+
+SPATIAL_EXTENT = [-170.0, -50.0, 84.0, 14.0]
+# The first grid was released in 2003, and Items will provide additional
+# temporal information as they are created
+TEMPORAL_EXTENT = [
+    datetime(2005, 1, 1),
+    None,
+]
+
+NRCAN_PROVIDER = Provider(
     name=
-    "Natural Resources Canada/ Canada Centre Mapping and Earth Observation",
-    roles=["producer", "processor", "host"],
+    "Natural Resources Canada / Canada Centre Mapping and Earth Observation",
+    roles=["producer", "processor"],
     url=
-    "https://www.nrcan.gc.ca/maps-tools-publications/satellite-imagery-air-photos/application-development/land-cover-products/21759"
+    "https://www.nrcan.gc.ca"
+)
+
+INEGI_PROVIDER = Provider(
+    name=
+    "Instituto Nacional de Estadística y Geografía",
+    roles=["producer", "processor"],
+    url=
+    "https://www.inegi.org.mx/"
+)
+
+CONAFOR_PROVIDER = Provider(
+    name=
+    "Comisión Nacional Forestal",
+    roles=["producer", "processor"],
+    url=
+    "https://www.gob.mx/conafor"
+)
+
+USGS_PROVIDER = Provider(
+    name=
+    "U.S. Geological Survey",
+    roles=["producer", "processor"],
+    url=
+    "https://www.usgs.gov"
+)
+
+CEC_PROVIDER = Provider(
+    name=
+    "Commission for Environmental Cooperation",
+    roles=["producer", "processor"],
+    url=
+    "http://www.cec.org/north-american-environmental-atlas/"
 )
