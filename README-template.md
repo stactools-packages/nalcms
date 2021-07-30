@@ -1,4 +1,4 @@
-# stactools-nalcms
+# stactools-ephemeral
 
 - Name: nalcms
 - Package: `stactools.nalcms`
@@ -8,7 +8,7 @@
 - STAC extensions used:
   - [proj](https://github.com/stac-extensions/projection/)
 - Extra fields:
-  - `nalcms:custom`: A custom attribute
+  - `ephemeral:custom`: A custom attribute
 
 A short description of the package and its usage.
 
