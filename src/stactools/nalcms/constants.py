@@ -14,19 +14,6 @@ COLLECTION_DESCRIPTION = (
 # [xmin, ymin, xmax, ymax]]
 # [west, east, noth, south]
 
-COLLECTION_ID = "nalcms"
-COLLECTION_EPSG = 3978
-COLLECTION_TITLE = "North American Land Change Monitoring System data"
-COLLECTION_LICENSE = "PDDL-1.0"
-
-COLLECTION_DESCRIPTION = (
-    "Land Cover change maps shows class transitions from 2010 to 2015 over Canada, Alaska, the conterminous United States, and Mexico. "
-    "Changes have been assessed from Land Cover maps at 30 meters resolution."
-)
-
-# [xmin, ymin, xmax, ymax]]
-# [west, east, noth, south]
-
 SPATIAL_EXTENT = [-170.0, -50.0, 84.0, 14.0]
 # The first grid was released in 2003, and Items will provide additional
 # temporal information as they are created
