@@ -10,5 +10,6 @@ def register_plugin(registry):
 
     registry.register_subcommand(commands.create_nalcms_command)
 
+
 __all__ = [constants, stac, assets]
 __version__ = "0.0.1"

@@ -117,17 +117,14 @@ def create_item(nc_href: str, cog_href: str) -> Item:
         y_cellsize = 180.0 / float(dims["lat"].size)
 
     global_geom = {
-        "type":
-        "Polygon",
-        "coordinates": [[[-180, -90], [180, -90], [180, 90], [-180, 90],
-                         [-180, -90]]],
+        "type": "Polygon",
+        "coordinates": [[[-180, -90], [180, -90], [180, 90], [-180, 90], [-180, -90]]],
     }
 
     try:
         item_year = re.findall(r"\d{4}", properties["title"])[0]
     except IndexError:
-        raise ValueError(
-            "Unable to obtain year from the dataset title attribute")
+        raise ValueError("Unable to obtain year from the dataset title attribute")
 
     item_datetime = datetime(int(item_year), 1, 1)
 
