@@ -117,10 +117,8 @@ def create_item(nc_href: str, cog_href: str) -> Item:
         y_cellsize = 180.0 / float(dims["lat"].size)
 
     global_geom = {
-        "type":
-        "Polygon",
-        "coordinates": [[[-180, -90], [180, -90], [180, 90], [-180, 90],
-                         [-180, -90]]],
+        "type": "Polygon",
+        "coordinates": [[[-180, -90], [180, -90], [180, 90], [-180, 90], [-180, -90]]],
     }
 
     # Create item
