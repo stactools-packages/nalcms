@@ -14,4 +14,3 @@ types-click
 types-python-dateutil
 types-pytz
 yapf
-black

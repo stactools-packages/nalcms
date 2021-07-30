@@ -1,20 +1,15 @@
-from datetime import datetime
-import re
 import logging
 
 from pystac import (
     Collection,
-    Item,
     Asset,
     Extent,
     SpatialExtent,
     TemporalExtent,
     CatalogType,
-    MediaType,
 )
-from pystac.extensions.projection import ProjectionExtension
+
 from pystac.extensions.item_assets import ItemAssetsExtension
-from pystac.extensions.scientific import ScientificExtension
 
 from stactools.nalcms.constants import (
     COLLECTION_ID,
@@ -23,7 +18,6 @@ from stactools.nalcms.constants import (
     COLLECTION_LICENSE,
     COLLECTION_TITLE,
     COLLECTION_DESCRIPTION,
-    COLLECTION_EPSG,
     NRCAN_PROVIDER,
     INEGI_PROVIDER,
     CONAFOR_PROVIDER,
@@ -156,7 +150,6 @@ def create_collection() -> Collection:
 
 #     return item
 
-
 # def create_region_collection(reg):
 #     """
 #     TODO
@@ -181,7 +174,6 @@ def create_collection() -> Collection:
 #     )
 
 #     return region
-
 
 # def create_nalcms_collection():
 #     """

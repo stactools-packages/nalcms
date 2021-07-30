@@ -2,17 +2,15 @@ import click
 import logging
 
 from stactools.nalcms import stac
-from stactools.nalcms import cog
 
 logger = logging.getLogger(__name__)
 
 
 def create_nalcms_command(cli):
     """Creates the nalcms command line utility."""
-
     @cli.group(
         "nalcms",
-        short_help="Commands for working with North American Land Change Monitoring System data",  # noqa: E251
+        short_help="Commands for working with North American Land Change Monitoring System data",
     )
     def nalcms():
         pass

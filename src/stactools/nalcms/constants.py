@@ -1,5 +1,6 @@
 from datetime import datetime
 from pystac import Provider
+from pystac.provider import ProviderRole
 
 COLLECTION_ID = "nalcms"
 COLLECTION_EPSG = 3978
@@ -7,9 +8,9 @@ COLLECTION_TITLE = "North American Land Change Monitoring System data"
 COLLECTION_LICENSE = "proprietary"
 
 COLLECTION_DESCRIPTION = (
-    "Land Cover change maps shows class transitions from 2010 to 2015 over Canada, Alaska, the conterminous United States, and Mexico. "
-    "Changes have been assessed from Land Cover maps at 30 meters resolution."
-)
+    "Land Cover change maps shows class transitions from 2010 to 2015 over Canada, Alaska, the"
+    " conterminous United States, and Mexico. Changes have been assessed from Land Cover maps at 30"
+    " meters resolution.")
 
 # [xmin, ymin, xmax, ymax]]
 # [west, east, noth, south]
@@ -21,31 +22,31 @@ TEMPORAL_EXTENT = [
 
 NRCAN_PROVIDER = Provider(
     name="Natural Resources Canada / Canada Centre Mapping and Earth Observation",
-    roles=["producer", "processor"],
+    roles=[ProviderRole("producer"), ProviderRole("processor")],
     url="https://www.nrcan.gc.ca",
 )
 
 INEGI_PROVIDER = Provider(
     name="Instituto Nacional de Estadística y Geografía",
-    roles=["producer", "processor"],
+    roles=[ProviderRole("producer"), ProviderRole("processor")],
     url="https://www.inegi.org.mx/",
 )
 
 CONAFOR_PROVIDER = Provider(
     name="Comisión Nacional Forestal",
-    roles=["producer", "processor"],
+    roles=[ProviderRole("producer"), ProviderRole("processor")],
     url="https://www.gob.mx/conafor",
 )
 
 USGS_PROVIDER = Provider(
     name="U.S. Geological Survey",
-    roles=["producer", "processor"],
+    roles=[ProviderRole("producer"), ProviderRole("processor")],
     url="https://www.usgs.gov",
 )
 
 CEC_PROVIDER = Provider(
     name="Commission for Environmental Cooperation",
-    roles=["producer", "processor"],
+    roles=[ProviderRole("producer"), ProviderRole("processor")],
     url="http://www.cec.org/north-american-environmental-atlas/",
 )
 
@@ -98,8 +99,13 @@ HREFS_METADATA = {
 
 PROJECTIONS = {
     "30m_2010-2015_USA": {
-        "epsg": None,
-        "wkt": 'PROJCS["WGS_1984_Lambert_Azimuthal_Equal_Area",GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4326"]],PROJECTION["Lambert_Azimuthal_Equal_Area"],PARAMETER["latitude_of_center",45],PARAMETER["longitude_of_center",-100],PARAMETER["false_easting",0],PARAMETER["false_northing",0],UNIT["metre",1],AXIS["Easting",EAST],AXIS["Northing",NORTH]]',
+        "epsg":
+        None,
+        "wkt": (
+            'PROJCS["WGS_1984_Lambert_Azimuthal_Equal_Area",GEOGCS["WGS'
+            ' 84",DATUM["WGS_1984",SPHEROID["WGS'
+            ' 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4326"]],PROJECTION["Lambert_Azimuthal_Equal_Area"],PARAMETER["latitude_of_center",45],PARAMETER["longitude_of_center",-100],PARAMETER["false_easting",0],PARAMETER["false_northing",0],UNIT["metre",1],AXIS["Easting",EAST],AXIS["Northing",NORTH]]'  # noqa
+        ),
         "transform": [
             30.0,
             0.0,
@@ -119,8 +125,13 @@ PROJECTIONS = {
         ],
     },
     "30m_2010-2015_MEX": {
-        "epsg": None,
-        "wkt": 'PROJCS["WGS_1984_Lambert_Azimuthal_Equal_Area",GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4326"]],PROJECTION["Lambert_Azimuthal_Equal_Area"],PARAMETER["latitude_of_center",45],PARAMETER["longitude_of_center",-100],PARAMETER["false_easting",0],PARAMETER["false_northing",0],UNIT["metre",1],AXIS["Easting",EAST],AXIS["Northing",NORTH]]',
+        "epsg":
+        None,
+        "wkt": (
+            'PROJCS["WGS_1984_Lambert_Azimuthal_Equal_Area",GEOGCS["WGS'
+            ' 84",DATUM["WGS_1984",SPHEROID["WGS'
+            ' 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4326"]],PROJECTION["Lambert_Azimuthal_Equal_Area"],PARAMETER["latitude_of_center",45],PARAMETER["longitude_of_center",-100],PARAMETER["false_easting",0],PARAMETER["false_northing",0],UNIT["metre",1],AXIS["Easting",EAST],AXIS["Northing",NORTH]]'  # noqa
+        ),
         "transform": [
             30.0,
             0.0,
@@ -141,13 +152,19 @@ PROJECTIONS = {
     },
     "250m_2005-2010_NA": {
         "epsg": None,
-        "wkt": 'PROJCS["Sphere_ARC_INFO_Lambert_Azimuthal_Equal_Area",GEOGCS["GCS_Sphere_ARC_INFO",DATUM["Sphere_ARC_INFO",SPHEROID["Sphere_ARC_INFO",6370997,0]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]]],PROJECTION["Lambert_Azimuthal_Equal_Area"],PARAMETER["latitude_of_center",45],PARAMETER["longitude_of_center",-100],PARAMETER["false_easting",0],PARAMETER["false_northing",0],UNIT["metre",1],AXIS["Easting",EAST],AXIS["Northing",NORTH]]',
+        "wkt":
+        'PROJCS["Sphere_ARC_INFO_Lambert_Azimuthal_Equal_Area",GEOGCS["GCS_Sphere_ARC_INFO",DATUM["Sphere_ARC_INFO",SPHEROID["Sphere_ARC_INFO",6370997,0]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]]],PROJECTION["Lambert_Azimuthal_Equal_Area"],PARAMETER["latitude_of_center",45],PARAMETER["longitude_of_center",-100],PARAMETER["false_easting",0],PARAMETER["false_northing",0],UNIT["metre",1],AXIS["Easting",EAST],AXIS["Northing",NORTH]]',  # noqa
         "transform": [250.0, 0.0, -4418000.0, 0.0, -250.0, 4876500.0, 0.0, 0.0, 1.0],
         "bounds": [-4418000.0, -3873500.0, 4832000.0, 4876500.0],
     },
     "30m_2015_NA": {
-        "epsg": None,
-        "wkt": 'PROJCS["WGS_1984_Lambert_Azimuthal_Equal_Area",GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4326"]],PROJECTION["Lambert_Azimuthal_Equal_Area"],PARAMETER["latitude_of_center",45],PARAMETER["longitude_of_center",-100],PARAMETER["false_easting",0],PARAMETER["false_northing",0],UNIT["metre",1],AXIS["Easting",EAST],AXIS["Northing",NORTH]]',
+        "epsg":
+        None,
+        "wkt": (
+            'PROJCS["WGS_1984_Lambert_Azimuthal_Equal_Area",GEOGCS["WGS'
+            ' 84",DATUM["WGS_1984",SPHEROID["WGS'
+            ' 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4326"]],PROJECTION["Lambert_Azimuthal_Equal_Area"],PARAMETER["latitude_of_center",45],PARAMETER["longitude_of_center",-100],PARAMETER["false_easting",0],PARAMETER["false_northing",0],UNIT["metre",1],AXIS["Easting",EAST],AXIS["Northing",NORTH]]'  # noqa
+        ),
         "transform": [
             30.0,
             0.0,
@@ -162,8 +179,13 @@ PROJECTIONS = {
         "bounds": [-4410000.0, -3339999.999999998, 3360000.0, 4310000.000000002],
     },
     "30m_2010_CAN": {
-        "epsg": None,
-        "wkt": 'PROJCS["WGS_1984_Lambert_Azimuthal_Equal_Area",GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4326"]],PROJECTION["Lambert_Azimuthal_Equal_Area"],PARAMETER["latitude_of_center",45],PARAMETER["longitude_of_center",-100],PARAMETER["false_easting",0],PARAMETER["false_northing",0],UNIT["metre",1],AXIS["Easting",EAST],AXIS["Northing",NORTH]]',
+        "epsg":
+        None,
+        "wkt": (
+            'PROJCS["WGS_1984_Lambert_Azimuthal_Equal_Area",GEOGCS["WGS'
+            ' 84",DATUM["WGS_1984",SPHEROID["WGS'
+            ' 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4326"]],PROJECTION["Lambert_Azimuthal_Equal_Area"],PARAMETER["latitude_of_center",45],PARAMETER["longitude_of_center",-100],PARAMETER["false_easting",0],PARAMETER["false_northing",0],UNIT["metre",1],AXIS["Easting",EAST],AXIS["Northing",NORTH]]'  # noqa
+        ),
         "transform": [
             30.0,
             0.0,
@@ -183,14 +205,20 @@ PROJECTIONS = {
         ],
     },
     "30m_2015_USA": {
-        "epsg": None,
-        "wkt": 'PROJCS["WGS_1984_Lambert_Azimuthal_Equal_Area",GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4326"]],PROJECTION["Lambert_Azimuthal_Equal_Area"],PARAMETER["latitude_of_center",45],PARAMETER["longitude_of_center",-100],PARAMETER["false_easting",0],PARAMETER["false_northing",0],UNIT["metre",1],AXIS["Easting",EAST],AXIS["Northing",NORTH]]',
+        "epsg":
+        None,
+        "wkt": (
+            'PROJCS["WGS_1984_Lambert_Azimuthal_Equal_Area",GEOGCS["WGS'
+            ' 84",DATUM["WGS_1984",SPHEROID["WGS'
+            ' 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4326"]],PROJECTION["Lambert_Azimuthal_Equal_Area"],PARAMETER["latitude_of_center",45],PARAMETER["longitude_of_center",-100],PARAMETER["false_easting",0],PARAMETER["false_northing",0],UNIT["metre",1],AXIS["Easting",EAST],AXIS["Northing",NORTH]]'  # noqa
+        ),
         "transform": [30.0, 0.0, -2043060.0, 0.0, -30.0, 732440.0, 0.0, 0.0, 1.0],
         "bounds": [-2043060.0, -2113150.0, 2529600.0, 732440.0],
     },
     "250m_2005_HI": {
         "epsg": None,
-        "wkt": 'PROJCS["Sphere_ARC_INFO_Lambert_Azimuthal_Equal_Area",GEOGCS["GCS_Sphere_ARC_INFO",DATUM["D_Sphere_ARC_INFO",SPHEROID["Sphere_ARC_INFO",6370997,0]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]]],PROJECTION["Lambert_Azimuthal_Equal_Area"],PARAMETER["latitude_of_center",45],PARAMETER["longitude_of_center",-100],PARAMETER["false_easting",0],PARAMETER["false_northing",0],UNIT["metre",1],AXIS["Easting",EAST],AXIS["Northing",NORTH]]',
+        "wkt":
+        'PROJCS["Sphere_ARC_INFO_Lambert_Azimuthal_Equal_Area",GEOGCS["GCS_Sphere_ARC_INFO",DATUM["D_Sphere_ARC_INFO",SPHEROID["Sphere_ARC_INFO",6370997,0]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]]],PROJECTION["Lambert_Azimuthal_Equal_Area"],PARAMETER["latitude_of_center",45],PARAMETER["longitude_of_center",-100],PARAMETER["false_easting",0],PARAMETER["false_northing",0],UNIT["metre",1],AXIS["Easting",EAST],AXIS["Northing",NORTH]]',  # noqa
         "transform": [
             250.0,
             0.0,
@@ -206,13 +234,19 @@ PROJECTIONS = {
     },
     "250m_2005_NA": {
         "epsg": None,
-        "wkt": 'PROJCS["Sphere_ARC_INFO_Lambert_Azimuthal_Equal_Area",GEOGCS["GCS_Sphere_ARC_INFO",DATUM["D_Sphere_ARC_INFO",SPHEROID["Sphere_ARC_INFO",6370997,0]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]]],PROJECTION["Lambert_Azimuthal_Equal_Area"],PARAMETER["latitude_of_center",45],PARAMETER["longitude_of_center",-100],PARAMETER["false_easting",0],PARAMETER["false_northing",0],UNIT["metre",1],AXIS["Easting",EAST],AXIS["Northing",NORTH]]',
+        "wkt":
+        'PROJCS["Sphere_ARC_INFO_Lambert_Azimuthal_Equal_Area",GEOGCS["GCS_Sphere_ARC_INFO",DATUM["D_Sphere_ARC_INFO",SPHEROID["Sphere_ARC_INFO",6370997,0]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]]],PROJECTION["Lambert_Azimuthal_Equal_Area"],PARAMETER["latitude_of_center",45],PARAMETER["longitude_of_center",-100],PARAMETER["false_easting",0],PARAMETER["false_northing",0],UNIT["metre",1],AXIS["Easting",EAST],AXIS["Northing",NORTH]]',  # noqa
         "transform": [250.0, 0.0, -4418000.0, 0.0, -250.0, 4876500.0, 0.0, 0.0, 1.0],
         "bounds": [-4418000.0, -3873500.0, 4832000.0, 4876500.0],
     },
     "30m_2010_NA": {
-        "epsg": None,
-        "wkt": 'PROJCS["WGS_1984_Lambert_Azimuthal_Equal_Area",GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4326"]],PROJECTION["Lambert_Azimuthal_Equal_Area"],PARAMETER["latitude_of_center",45],PARAMETER["longitude_of_center",-100],PARAMETER["false_easting",0],PARAMETER["false_northing",0],UNIT["metre",1],AXIS["Easting",EAST],AXIS["Northing",NORTH]]',
+        "epsg":
+        None,
+        "wkt": (
+            'PROJCS["WGS_1984_Lambert_Azimuthal_Equal_Area",GEOGCS["WGS'
+            ' 84",DATUM["WGS_1984",SPHEROID["WGS'
+            ' 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4326"]],PROJECTION["Lambert_Azimuthal_Equal_Area"],PARAMETER["latitude_of_center",45],PARAMETER["longitude_of_center",-100],PARAMETER["false_easting",0],PARAMETER["false_northing",0],UNIT["metre",1],AXIS["Easting",EAST],AXIS["Northing",NORTH]]'  # noqa
+        ),
         "transform": [
             30.0,
             0.0,
@@ -227,8 +261,13 @@ PROJECTIONS = {
         "bounds": [-4410000.0, -3339999.999999998, 3360000.0, 4310000.000000002],
     },
     "30m_2010_ASK": {
-        "epsg": None,
-        "wkt": 'PROJCS["WGS_1984_Lambert_Azimuthal_Equal_Area",GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4326"]],PROJECTION["Lambert_Azimuthal_Equal_Area"],PARAMETER["latitude_of_center",45],PARAMETER["longitude_of_center",-100],PARAMETER["false_easting",0],PARAMETER["false_northing",0],UNIT["metre",1],AXIS["Easting",EAST],AXIS["Northing",NORTH]]',
+        "epsg":
+        None,
+        "wkt": (
+            'PROJCS["WGS_1984_Lambert_Azimuthal_Equal_Area",GEOGCS["WGS'
+            ' 84",DATUM["WGS_1984",SPHEROID["WGS'
+            ' 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4326"]],PROJECTION["Lambert_Azimuthal_Equal_Area"],PARAMETER["latitude_of_center",45],PARAMETER["longitude_of_center",-100],PARAMETER["false_easting",0],PARAMETER["false_northing",0],UNIT["metre",1],AXIS["Easting",EAST],AXIS["Northing",NORTH]]'  # noqa
+        ),
         "transform": [
             30.0,
             0.0,
@@ -248,14 +287,24 @@ PROJECTIONS = {
         ],
     },
     "30m_2010_USA": {
-        "epsg": None,
-        "wkt": 'PROJCS["WGS_1984_Lambert_Azimuthal_Equal_Area",GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4326"]],PROJECTION["Lambert_Azimuthal_Equal_Area"],PARAMETER["latitude_of_center",45],PARAMETER["longitude_of_center",-100],PARAMETER["false_easting",0],PARAMETER["false_northing",0],UNIT["metre",1],AXIS["Easting",EAST],AXIS["Northing",NORTH]]',
+        "epsg":
+        None,
+        "wkt": (
+            'PROJCS["WGS_1984_Lambert_Azimuthal_Equal_Area",GEOGCS["WGS'
+            ' 84",DATUM["WGS_1984",SPHEROID["WGS'
+            ' 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4326"]],PROJECTION["Lambert_Azimuthal_Equal_Area"],PARAMETER["latitude_of_center",45],PARAMETER["longitude_of_center",-100],PARAMETER["false_easting",0],PARAMETER["false_northing",0],UNIT["metre",1],AXIS["Easting",EAST],AXIS["Northing",NORTH]]'  # noqa
+        ),
         "transform": [30.0, 0.0, -2043060.0, 0.0, -30.0, 732440.0, 0.0, 0.0, 1.0],
         "bounds": [-2043060.0, -2113150.0, 2529600.0, 732440.0],
     },
     "30m_2010-2015_CAN": {
-        "epsg": None,
-        "wkt": 'PROJCS["WGS_1984_Lambert_Azimuthal_Equal_Area",GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4326"]],PROJECTION["Lambert_Azimuthal_Equal_Area"],PARAMETER["latitude_of_center",45],PARAMETER["longitude_of_center",-100],PARAMETER["false_easting",0],PARAMETER["false_northing",0],UNIT["metre",1],AXIS["Easting",EAST],AXIS["Northing",NORTH]]',
+        "epsg":
+        None,
+        "wkt": (
+            'PROJCS["WGS_1984_Lambert_Azimuthal_Equal_Area",GEOGCS["WGS'
+            ' 84",DATUM["WGS_1984",SPHEROID["WGS'
+            ' 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4326"]],PROJECTION["Lambert_Azimuthal_Equal_Area"],PARAMETER["latitude_of_center",45],PARAMETER["longitude_of_center",-100],PARAMETER["false_easting",0],PARAMETER["false_northing",0],UNIT["metre",1],AXIS["Easting",EAST],AXIS["Northing",NORTH]]'  # noqa
+        ),
         "transform": [
             30.0,
             0.0,
@@ -275,8 +324,13 @@ PROJECTIONS = {
         ],
     },
     "30m_2015_CAN": {
-        "epsg": None,
-        "wkt": 'PROJCS["WGS_1984_Lambert_Azimuthal_Equal_Area",GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4326"]],PROJECTION["Lambert_Azimuthal_Equal_Area"],PARAMETER["latitude_of_center",45],PARAMETER["longitude_of_center",-100],PARAMETER["false_easting",0],PARAMETER["false_northing",0],UNIT["metre",1],AXIS["Easting",EAST],AXIS["Northing",NORTH]]',
+        "epsg":
+        None,
+        "wkt": (
+            'PROJCS["WGS_1984_Lambert_Azimuthal_Equal_Area",GEOGCS["WGS'
+            ' 84",DATUM["WGS_1984",SPHEROID["WGS'
+            ' 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4326"]],PROJECTION["Lambert_Azimuthal_Equal_Area"],PARAMETER["latitude_of_center",45],PARAMETER["longitude_of_center",-100],PARAMETER["false_easting",0],PARAMETER["false_northing",0],UNIT["metre",1],AXIS["Easting",EAST],AXIS["Northing",NORTH]]'  # noqa
+        ),
         "transform": [
             30.0,
             0.0,
@@ -297,13 +351,19 @@ PROJECTIONS = {
     },
     "250m_2010_NA": {
         "epsg": None,
-        "wkt": 'PROJCS["Sphere_ARC_INFO_Lambert_Azimuthal_Equal_Area",GEOGCS["GCS_Sphere_ARC_INFO",DATUM["D_Sphere_ARC_INFO",SPHEROID["Sphere_ARC_INFO",6370997,0]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]]],PROJECTION["Lambert_Azimuthal_Equal_Area"],PARAMETER["latitude_of_center",45],PARAMETER["longitude_of_center",-100],PARAMETER["false_easting",0],PARAMETER["false_northing",0],UNIT["metre",1],AXIS["Easting",EAST],AXIS["Northing",NORTH]]',
+        "wkt":
+        'PROJCS["Sphere_ARC_INFO_Lambert_Azimuthal_Equal_Area",GEOGCS["GCS_Sphere_ARC_INFO",DATUM["D_Sphere_ARC_INFO",SPHEROID["Sphere_ARC_INFO",6370997,0]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]]],PROJECTION["Lambert_Azimuthal_Equal_Area"],PARAMETER["latitude_of_center",45],PARAMETER["longitude_of_center",-100],PARAMETER["false_easting",0],PARAMETER["false_northing",0],UNIT["metre",1],AXIS["Easting",EAST],AXIS["Northing",NORTH]]',  # noqa
         "transform": [250.0, 0.0, -4418000.0, 0.0, -250.0, 4876500.0, 0.0, 0.0, 1.0],
         "bounds": [-4418000.0, -3873500.0, 4832000.0, 4876500.0],
     },
     "30m_2010-2015_ASK": {
-        "epsg": None,
-        "wkt": 'PROJCS["WGS_1984_Lambert_Azimuthal_Equal_Area",GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4326"]],PROJECTION["Lambert_Azimuthal_Equal_Area"],PARAMETER["latitude_of_center",45],PARAMETER["longitude_of_center",-100],PARAMETER["false_easting",0],PARAMETER["false_northing",0],UNIT["metre",1],AXIS["Easting",EAST],AXIS["Northing",NORTH]]',
+        "epsg":
+        None,
+        "wkt": (
+            'PROJCS["WGS_1984_Lambert_Azimuthal_Equal_Area",GEOGCS["WGS'
+            ' 84",DATUM["WGS_1984",SPHEROID["WGS'
+            ' 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4326"]],PROJECTION["Lambert_Azimuthal_Equal_Area"],PARAMETER["latitude_of_center",45],PARAMETER["longitude_of_center",-100],PARAMETER["false_easting",0],PARAMETER["false_northing",0],UNIT["metre",1],AXIS["Easting",EAST],AXIS["Northing",NORTH]]'  # noqa
+        ),
         "transform": [
             30.0,
             0.0,
@@ -323,8 +383,13 @@ PROJECTIONS = {
         ],
     },
     "30m_2015_ASK": {
-        "epsg": None,
-        "wkt": 'PROJCS["WGS_1984_Lambert_Azimuthal_Equal_Area",GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4326"]],PROJECTION["Lambert_Azimuthal_Equal_Area"],PARAMETER["latitude_of_center",45],PARAMETER["longitude_of_center",-100],PARAMETER["false_easting",0],PARAMETER["false_northing",0],UNIT["metre",1],AXIS["Easting",EAST],AXIS["Northing",NORTH]]',
+        "epsg":
+        None,
+        "wkt": (
+            'PROJCS["WGS_1984_Lambert_Azimuthal_Equal_Area",GEOGCS["WGS'
+            ' 84",DATUM["WGS_1984",SPHEROID["WGS'
+            ' 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4326"]],PROJECTION["Lambert_Azimuthal_Equal_Area"],PARAMETER["latitude_of_center",45],PARAMETER["longitude_of_center",-100],PARAMETER["false_easting",0],PARAMETER["false_northing",0],UNIT["metre",1],AXIS["Easting",EAST],AXIS["Northing",NORTH]]'  # noqa
+        ),
         "transform": [
             30.0,
             0.0,
@@ -344,8 +409,13 @@ PROJECTIONS = {
         ],
     },
     "30m_2015_MEX": {
-        "epsg": None,
-        "wkt": 'PROJCS["WGS_1984_Lambert_Azimuthal_Equal_Area",GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4326"]],PROJECTION["Lambert_Azimuthal_Equal_Area"],PARAMETER["latitude_of_center",45],PARAMETER["longitude_of_center",-100],PARAMETER["false_easting",0],PARAMETER["false_northing",0],UNIT["metre",1],AXIS["Easting",EAST],AXIS["Northing",NORTH]]',
+        "epsg":
+        None,
+        "wkt": (
+            'PROJCS["WGS_1984_Lambert_Azimuthal_Equal_Area",GEOGCS["WGS'
+            ' 84",DATUM["WGS_1984",SPHEROID["WGS'
+            ' 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4326"]],PROJECTION["Lambert_Azimuthal_Equal_Area"],PARAMETER["latitude_of_center",45],PARAMETER["longitude_of_center",-100],PARAMETER["false_easting",0],PARAMETER["false_northing",0],UNIT["metre",1],AXIS["Easting",EAST],AXIS["Northing",NORTH]]'  # noqa
+        ),
         "transform": [
             30.0,
             0.0,
@@ -365,8 +435,13 @@ PROJECTIONS = {
         ],
     },
     "30m_2010_MEX": {
-        "epsg": None,
-        "wkt": 'PROJCS["WGS_1984_Lambert_Azimuthal_Equal_Area",GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4326"]],PROJECTION["Lambert_Azimuthal_Equal_Area"],PARAMETER["latitude_of_center",45],PARAMETER["longitude_of_center",-100],PARAMETER["false_easting",0],PARAMETER["false_northing",0],UNIT["metre",1],AXIS["Easting",EAST],AXIS["Northing",NORTH]]',
+        "epsg":
+        None,
+        "wkt": (
+            'PROJCS["WGS_1984_Lambert_Azimuthal_Equal_Area",GEOGCS["WGS'
+            ' 84",DATUM["WGS_1984",SPHEROID["WGS'
+            ' 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4326"]],PROJECTION["Lambert_Azimuthal_Equal_Area"],PARAMETER["latitude_of_center",45],PARAMETER["longitude_of_center",-100],PARAMETER["false_easting",0],PARAMETER["false_northing",0],UNIT["metre",1],AXIS["Easting",EAST],AXIS["Northing",NORTH]]'  # noqa
+        ),
         "transform": [
             30.0,
             0.0,
@@ -429,8 +504,8 @@ SATELLITES = {
     },
 }
 
-EXTENTS = {}
+# EXTENTS = {}
 
-PROJECTIONS = {}
+# PROJECTIONS = {}
 
 KEYWORDS = ["NALCMS", "Landsat 7", "RapidEye", "North America", "MODIS"]
