@@ -24,4 +24,4 @@ if [ "${BASH_SOURCE[0]}" = "${0}" ]; then
         --entrypoint /bin/bash \
         $DOCKER_REGISTRY/$DOCKER_ORG/$DOCKER_REPO:$DOCKER_TAG_DEV \
         -c "make livehtml"
-f
+fi
