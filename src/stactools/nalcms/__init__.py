@@ -1,13 +1,12 @@
+from stactools.cli import Registry
 import stactools.core
 
-from stactools.nalcms import stac, assets, constants
+from stactools.nalcms import assets, commands, constants, stac
 
 stactools.core.use_fsspec()
 
 
-def register_plugin(registry):
-    from stactools.nalcms import commands
-
+def register_plugin(registry: Registry) -> None:
     registry.register_subcommand(commands.create_nalcms_command)
 
 
