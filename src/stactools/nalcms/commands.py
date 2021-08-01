@@ -30,3 +30,5 @@ def create_nalcms_command(cli):
         collection.set_self_href(destination)
 
         collection.save_object()
+
+    return nalcms
