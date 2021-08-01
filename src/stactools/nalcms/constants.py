@@ -1,6 +1,5 @@
 from datetime import datetime
-from pystac import Provider
-from pystac.provider import ProviderRole
+from pystac import Provider, ProviderRole
 
 COLLECTION_ID = "nalcms"
 COLLECTION_EPSG = 3978
@@ -29,31 +28,31 @@ NRCAN_PROVIDER = Provider(
     name=(
         "Natural Resources Canada | Ressources naturelles Canada / Canada Centre Mapping and Earth"
         " Observation | Centre Canadien de cartographie et d’observation de la terre"),
-    roles=[ProviderRole("producer"), ProviderRole("processor")],
+    roles=[ProviderRole.PRODUCER, ProviderRole.PROCESSOR],
     url="https://www.nrcan.gc.ca",
 )
 
 INEGI_PROVIDER = Provider(
     name="Instituto Nacional de Estadística y Geografía",
-    roles=[ProviderRole("producer"), ProviderRole("processor")],
+    roles=[ProviderRole.PRODUCER, ProviderRole.PROCESSOR],
     url="https://www.inegi.org.mx/",
 )
 
 CONAFOR_PROVIDER = Provider(
     name="Comisión Nacional Forestal",
-    roles=[ProviderRole("producer"), ProviderRole("processor")],
+    roles=[ProviderRole.PRODUCER, ProviderRole.PROCESSOR],
     url="https://www.gob.mx/conafor",
 )
 
 USGS_PROVIDER = Provider(
     name="U.S. Geological Survey",
-    roles=[ProviderRole("producer"), ProviderRole("processor")],
+    roles=[ProviderRole.PRODUCER, ProviderRole.PROCESSOR],
     url="https://www.usgs.gov",
 )
 
 CEC_PROVIDER = Provider(
     name="Commission for Environmental Cooperation",
-    roles=[ProviderRole("producer"), ProviderRole("processor")],
+    roles=[ProviderRole.PRODUCER, ProviderRole.PROCESSOR],
     url="http://www.cec.org/north-american-environmental-atlas/",
 )
 
