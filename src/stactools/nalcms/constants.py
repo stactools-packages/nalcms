@@ -581,3 +581,7 @@ EXTENTS = {
 }
 
 KEYWORDS = ["NALCMS", "Landsat 7", "RapidEye", "North America", "MODIS"]
+
+
+DOI = "10.1201/b11964-24"
+CITATION = "Latifovic, Rasim & Homer, Collin & Ressl, Rainer & Pouliot, D.A. & Hossian, S. & Colditz, Rene & Olthof, Ian & Chandra, Giri & Victoria, Arturo. (2012). North American Land Change Monitoring System. Remote Sensing of Land Use and Land Cover: Principles and Applications. 303-324. 10.1201/b11964-24."

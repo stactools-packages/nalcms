@@ -8,11 +8,14 @@ from pystac import (Collection, Asset, Extent, SpatialExtent, TemporalExtent,
 
 from pystac.extensions.item_assets import ItemAssetsExtension
 from pystac.extensions.projection import SummariesProjectionExtension, ProjectionExtension
+from pystac.extensions.scientific import ScientificExtension
 from pystac.item import Item
 from pystac.summaries import Summaries
 
 from stactools.nalcms.constants import (
+    CITATION,
     COLLECTION_ID,
+    DOI,
     EXTENTS,
     GSDS,
     HREFS_ZIP,
@@ -89,9 +92,9 @@ def create_nalcms_collection() -> Collection:
     proj_ext.epsg = list([v['epsg'] for v in PROJECTIONS.values()])
     proj_ext.wkt = list([v['wkt'] for v in PROJECTIONS.values()])
 
-    # scientific = ScientificExtension.ext(collection, add_if_missing=True)
-    # scientific.doi = DOI
-    # scientific.citation = CITATION
+    scientific = ScientificExtension.ext(collection, add_if_missing=True)
+    scientific.doi = DOI
+    scientific.citation = CITATION
 
     item_assets = ItemAssetsExtension.ext(collection, add_if_missing=True)
     item_assets.item_assets = ITEM_ASSETS
