@@ -2,6 +2,7 @@ import logging
 import os
 from shapely.geometry import box
 from datetime import datetime
+import itertools as it
 
 from pystac import (Collection, Asset, Extent, SpatialExtent, TemporalExtent,
                     CatalogType, MediaType)
@@ -10,6 +11,7 @@ from pystac.extensions.item_assets import ItemAssetsExtension
 from pystac.extensions.projection import SummariesProjectionExtension, ProjectionExtension
 from pystac.extensions.scientific import ScientificExtension
 from pystac.extensions.raster import RasterExtension
+from pystac.extensions.file import FileExtension
 from pystac.item import Item
 from pystac.summaries import Summaries
 
@@ -18,6 +20,7 @@ from stactools.nalcms.constants import (
     COLLECTION_ID,
     DATA_TYPE,
     DOI,
+    FILE_SIZES,
     SPATIAL_EXTENTS,
     GSDS,
     HREFS_ZIP,
@@ -37,10 +40,19 @@ from stactools.nalcms.constants import (
     USGS_PROVIDER,
     CEC_PROVIDER,
     HREFS_METADATA,
+    VALUES,
     YEARS,
 )
 
 logger = logging.getLogger(__name__)
+
+values = [{"value": [i], "summary": s} for i, s in VALUES.items()]
+values_change = [{
+    "value": [int(f"{v1}{str(v2).zfill(2)}")],
+    "summary": f'"{VALUES[v1]}" to "{VALUES[v2]}"'
+} for v1, v2 in it.product(VALUES.keys(), VALUES.keys())]
+
+range()
 
 
 def create_nalcms_collection() -> Collection:
@@ -197,16 +209,14 @@ def create_item(reg, gsd, year) -> Item:
 
     # Create source data asset
     data_href = os.path.join(HREF_DIR, HREFS_ZIP[f"{gsd}m_{year}_{reg}"])
-    item.add_asset(
-        "data",
-        Asset(
-            href=data_href,
-            media_type="application/zip",
-            roles=["data"],
-            title=
-            "Data for land cover {diff}over {REGIONS[reg]} for {year} ({gsd} m)",
-        ),
+    data_asset = Asset(
+        href=data_href,
+        media_type="application/zip",
+        roles=["data"],
+        title=
+        "Data for land cover {diff}over {REGIONS[reg]} for {year} ({gsd} m)",
     )
+    item.add_asset("data", data_asset)
 
     # Include projection information
     proj_ext = ProjectionExtension.ext(item, add_if_missing=True)
@@ -217,10 +227,15 @@ def create_item(reg, gsd, year) -> Item:
     proj_ext.shape = PROJECTIONS[constants_key]["shape"]
 
     # Include raster information
-    rast_ext = RasterExtension.ext(item, add_if_missing=True)
+    rast_ext = RasterExtension.ext(data_asset, add_if_missing=True)
     rast_ext.nodata = NODATA[constants_key]
     rast_ext.data_type = DATA_TYPE[constants_key]
     rast_ext.spatial_resolution = gsd
+
+    # Include file information
+    file_ext = FileExtension.ext(data_asset, add_if_missing=True)
+    file_ext.size = FILE_SIZES[constants_key]
+    file_ext.values = values_change if "-" in year else values
 
     return item
 
@@ -246,7 +261,7 @@ def build_nalcms() -> Collection:
 
 
 def bounding_extent(extents):
-    """Find the outer extent of a set of extents
+    """Find the outer extent of a list of extents
     """
     xmin = min(extent[0] for extent in extents)
     ymin = min(extent[1] for extent in extents)

@@ -642,6 +642,48 @@ DATA_TYPE = {
     '30m_2010_MEX': 'int8',
 }
 
+VALUES = {
+    1:"Temperate or sub-polar needleleaf forest",
+    2:"Sub-polar taiga needleleaf forest",
+    3:"Tropical or sub-tropical broadleaf evergreen forest",
+    4:"Tropical or sub-tropical broadleaf deciduous forest",
+    5:"Temperate or sub-polar broadleaf deciduous forest",
+    6:"Mixed forest",
+    7:"Tropical or sub-tropical shrubland",
+    8:"Temperate or sub-polar shrubland",
+    9:"Tropical or sub-tropical grassland",
+    10:"Temperate or sub-polar grassland",
+    11:"Sub-polar or polar shrubland-lichen-moss",
+    12:"Sub-polar or polar grassland-lichen-moss",
+    13:"Sub-polar or polar barren-lichen-moss",
+    14:"Wetland",
+    15:"Cropland",
+    16:"Barren lands",
+    17:"Urban and built-up",
+    18:"Water",
+    19:"Snow and ice"
+}
+
+FILE_SIZES = {
+    '30m_2010-2015_USA': 588295657,
+    '30m_2010-2015_MEX': 215525299,
+    '250m_2005-2010_NA': 2590562610,
+    '30m_2015_NA': 3726465138,
+    '30m_2010_CAN': 1821927873,
+    '30m_2015_USA': 1179569139,
+    '250m_2005_HI': 156104,
+    '250m_2005_NA': 76020586,
+    '30m_2010_NA': 3331040589,
+    '30m_2010_ASK': 351824554,
+    '30m_2010_USA': 1178611813,
+    '30m_2010-2015_CAN': 748896959,
+    '30m_2015_CAN': 1835258561,
+    '250m_2010_NA': 63973855,
+    '30m_2010-2015_ASK': 201486837,
+    '30m_2015_ASK': 313294116,
+    '30m_2015_MEX': 277298245,
+    '30m_2010_MEX': 242651009,
+}
 
 DOI = "10.1201/b11964-24"
 CITATION = "Latifovic, Rasim & Homer, Collin & Ressl, Rainer & Pouliot, D.A. & Hossian, S. & Colditz, Rene & Olthof, Ian & Chandra, Giri & Victoria, Arturo. (2012). North American Land Change Monitoring System. Remote Sensing of Land Use and Land Cover: Principles and Applications. 303-324. 10.1201/b11964-24."
