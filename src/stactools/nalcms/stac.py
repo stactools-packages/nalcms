@@ -9,22 +9,24 @@ from pystac import (Collection, Asset, Extent, SpatialExtent, TemporalExtent,
 from pystac.extensions.item_assets import ItemAssetsExtension
 from pystac.extensions.projection import SummariesProjectionExtension, ProjectionExtension
 from pystac.extensions.scientific import ScientificExtension
+from pystac.extensions.raster import RasterExtension
 from pystac.item import Item
 from pystac.summaries import Summaries
 
 from stactools.nalcms.constants import (
     CITATION,
     COLLECTION_ID,
+    DATA_TYPE,
     DOI,
-    EXTENTS,
+    SPATIAL_EXTENTS,
     GSDS,
     HREFS_ZIP,
     HREF_DIR,
     KEYWORDS,
+    NODATA,
     PROJECTIONS,
     REGIONS,
     SATELLITES,
-    SPATIAL_EXTENT,
     TEMPORAL_EXTENT,
     COLLECTION_LICENSE,
     COLLECTION_TITLE,
@@ -37,8 +39,6 @@ from stactools.nalcms.constants import (
     HREFS_METADATA,
     YEARS,
 )
-
-from stactools.nalcms.assets import ITEM_ASSETS
 
 logger = logging.getLogger(__name__)
 
@@ -53,7 +53,7 @@ def create_nalcms_collection() -> Collection:
         Collection: STAC Collection object
     """
     extent = Extent(
-        SpatialExtent([bounding_extent(EXTENTS.values())]),
+        SpatialExtent([bounding_extent(SPATIAL_EXTENTS.values())]),
         TemporalExtent(TEMPORAL_EXTENT),
     )
 
@@ -61,9 +61,6 @@ def create_nalcms_collection() -> Collection:
         id=COLLECTION_ID,
         description=COLLECTION_DESCRIPTION,
         title=COLLECTION_TITLE,
-        stac_extensions=[
-            "https://stac-extensions.github.io/projection/v1.0.0/schema.json",
-        ],
         license=COLLECTION_LICENSE,
         keywords=KEYWORDS,
         providers=[
@@ -120,7 +117,7 @@ def create_region_collection(reg) -> Collection:
     """
     TODO
     """
-    extents = [v for k, v in EXTENTS.items if reg in k]
+    extents = [v for k, v in SPATIAL_EXTENTS.items if reg in k]
     extent = Extent(
         SpatialExtent([bounding_extent(extents)]),
         TemporalExtent(TEMPORAL_EXTENT),
@@ -131,9 +128,6 @@ def create_region_collection(reg) -> Collection:
         description=f"Land classification for {REGIONS[reg]}",
         extent=extent,
         title=f"NALCMS for {REGIONS[reg]}",
-        stac_extensions=[
-            "https://stac-extensions.github.io/projection/v1.0.0/schema.json",
-        ],
         license=COLLECTION_LICENSE,
         summaries=Summaries({
             "platform":
@@ -148,7 +142,7 @@ def create_region_collection(reg) -> Collection:
     )
 
     # Include projection information
-    proj_ext = SummariesProjectionExtension(collection)
+    proj_ext = SummariesProjectionExtension(collection, add_if_missing=True)
     proj_ext.epsg = list(
         [v['epsg'] for k, v in PROJECTIONS.items() if reg in k])
     proj_ext.wkt = list([v['wkt'] for k, v in PROJECTIONS.items() if reg in k])
@@ -163,7 +157,7 @@ def create_item(reg, gsd, year) -> Item:
     constants_key = f"{gsd}m_{year}_{reg}"
 
     # bbox and geometry
-    bbox = EXTENTS[constants_key]
+    bbox = SPATIAL_EXTENTS[constants_key]
     polygon = box(*bbox, ccw=True)
     coordinates = [list(i) for i in list(polygon.exterior.coords)]
     geometry = {"type": "Polygon", "coordinates": [coordinates]}
@@ -187,9 +181,6 @@ def create_item(reg, gsd, year) -> Item:
         bbox=bbox,
         datetime=datetime.strptime(years[0], "%Y"),
         properties=properties,
-        stac_extensions=[
-            "https://stac-extensions.github.io/projection/v1.0.0/schema.json"
-        ],
     )
 
     # Create metadata asset
@@ -218,11 +209,18 @@ def create_item(reg, gsd, year) -> Item:
     )
 
     # Include projection information
-    proj_ext = ProjectionExtension.ext(item)
+    proj_ext = ProjectionExtension.ext(item, add_if_missing=True)
     proj_ext.epsg = PROJECTIONS[constants_key]["epsg"]
     proj_ext.transform = PROJECTIONS[constants_key]["transform"]
     proj_ext.bbox = PROJECTIONS[constants_key]["bounds"]
     proj_ext.wkt2 = PROJECTIONS[constants_key]["wkt"]
+    proj_ext.shape = PROJECTIONS[constants_key]["shape"]
+
+    # Include raster information
+    rast_ext = RasterExtension.ext(item, add_if_missing=True)
+    rast_ext.nodata = NODATA[constants_key]
+    rast_ext.data_type = DATA_TYPE[constants_key]
+    rast_ext.spatial_resolution = gsd
 
     return item
 
