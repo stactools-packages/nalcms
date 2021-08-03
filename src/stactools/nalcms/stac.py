@@ -20,6 +20,7 @@ from pystac.summaries import Summaries
 
 from stactools.nalcms.constants import (
     COLLECTION_ID,
+    EXTENTS,
     GSDS,
     HREFS_ZIP,
     HREF_DIR,
@@ -56,7 +57,7 @@ def create_nalcms_collection() -> Collection:
         Collection: STAC Collection object
     """
     extent = Extent(
-        SpatialExtent([SPATIAL_EXTENT]),
+        SpatialExtent([bounding_extent(EXTENTS.values())]),
         TemporalExtent(TEMPORAL_EXTENT),
     )
 
@@ -121,10 +122,16 @@ def create_region_collection(reg) -> Collection:
     """
     TODO
     """
+    extents = [v for k, v in EXTENTS.items if reg in k]
+    extent = Extent(
+            SpatialExtent([bounding_extent(extents)]),
+            TemporalExtent(TEMPORAL_EXTENT),
+    )
+
     region = Collection(
         id=f"NALCMS_{reg}",
         description=f"Land classification for {REGIONS[reg]}",
-        extent=EXTENTS[reg],
+        extent=extent,
         title=f"NALCMS for {REGIONS[reg]}",
         stac_extensions=None,
         license=COLLECTION_LICENSE,
@@ -147,11 +154,15 @@ def create_item(reg, gsd, year) -> Item:
     """
     TODO
     """
-    bbox = EXTENTS[reg]
+    constants_key = f"{gsd}m_{year}_{reg}"
+
+    # bbox and geometry
+    bbox = EXTENTS[constants_key]
     polygon = box(*bbox, ccw=True)
     coordinates = [list(i) for i in list(polygon.exterior.coords)]
     geometry = {"type": "Polygon", "coordinates": [coordinates]}
 
+    # Item properties
     years = year.split("-")
     diff = "change " if "-" in year else ""
     properties = {
@@ -199,17 +210,16 @@ def create_item(reg, gsd, year) -> Item:
     )
 
     # Include projection information
-    proj_key = f"{gsd}m_{year}_{reg}"
     proj_ext = ProjectionExtension.ext(item)
-    proj_ext.epsg = PROJECTIONS[proj_key]["epsg"]
-    proj_ext.transform = PROJECTIONS[proj_key]["transform"]
-    proj_ext.bbox = PROJECTIONS[proj_key]["bounds"]
-    proj_ext.wkt2 = PROJECTIONS[proj_key]["wkt"]
+    proj_ext.epsg = PROJECTIONS[constants_key]["epsg"]
+    proj_ext.transform = PROJECTIONS[constants_key]["transform"]
+    proj_ext.bbox = PROJECTIONS[constants_key]["bounds"]
+    proj_ext.wkt2 = PROJECTIONS[constants_key]["wkt"]
 
     return item
 
 
-def build_catalog():
+def build_nalcms() -> Collection:
     """
     TODO
     """
@@ -227,3 +237,14 @@ def build_catalog():
             region.add_child(item)
 
     return nalcms
+
+
+def bounding_extent(extents):
+    """Find the outer extent of a set of extents
+    """
+    xmin = min(extent[0] for extent in extents)
+    ymin = min(extent[1] for extent in extents)
+    xmax = max(extent[2] for extent in extents)
+    ymax = max(extent[3] for extent in extents)
+
+    return [xmin, ymin, xmax, ymax]
