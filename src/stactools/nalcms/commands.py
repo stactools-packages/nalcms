@@ -10,7 +10,8 @@ def create_nalcms_command(cli: click.Group) -> click.Command:
     """Creates the nalcms command line utility."""
     @cli.group(
         "nalcms",
-        short_help="Commands for working with North American Land Change Monitoring System data",
+        short_help=
+        "Commands for working with North American Land Change Monitoring System data",
     )
     def nalcms() -> None:
         pass

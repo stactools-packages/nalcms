@@ -3,15 +3,8 @@ import os
 from shapely.geometry import box
 from datetime import datetime
 
-from pystac import (
-    Collection,
-    Asset,
-    Extent,
-    SpatialExtent,
-    TemporalExtent,
-    CatalogType,
-    MediaType
-)
+from pystac import (Collection, Asset, Extent, SpatialExtent, TemporalExtent,
+                    CatalogType, MediaType)
 
 from pystac.extensions.item_assets import ItemAssetsExtension
 from pystac.extensions.projection import SummariesProjectionExtension, ProjectionExtension
@@ -79,20 +72,22 @@ def create_nalcms_collection() -> Collection:
         ],
         catalog_type=CatalogType.RELATIVE_PUBLISHED,
         extent=extent,
-        summaries=Summaries(
-            {
-                "platform": sum([v["platform"] for v in SATELLITES.values()], []),
-                "instruments": sum([v["instruments"] for v in SATELLITES.values()], []),
-                "constellation": sum(
-                    [v["constellation"] for v in SATELLITES.values()], []
-                ),
-                "gsd": GSDS,
-            }
-        ),
+        summaries=Summaries({
+            "platform":
+            sum([v["platform"] for v in SATELLITES.values()], []),
+            "instruments":
+            sum([v["instruments"] for v in SATELLITES.values()], []),
+            "constellation":
+            sum([v["constellation"] for v in SATELLITES.values()], []),
+            "gsd":
+            GSDS,
+        }),
     )
 
+    # Include projection information
     proj_ext = SummariesProjectionExtension(collection)
-    proj_ext.epsg = list(PROJECTIONS.values())
+    proj_ext.epsg = list([v['epsg'] for v in PROJECTIONS.values()])
+    proj_ext.wkt = list([v['wkt'] for v in PROJECTIONS.values()])
 
     # scientific = ScientificExtension.ext(collection, add_if_missing=True)
     # scientific.doi = DOI
@@ -124,30 +119,38 @@ def create_region_collection(reg) -> Collection:
     """
     extents = [v for k, v in EXTENTS.items if reg in k]
     extent = Extent(
-            SpatialExtent([bounding_extent(extents)]),
-            TemporalExtent(TEMPORAL_EXTENT),
+        SpatialExtent([bounding_extent(extents)]),
+        TemporalExtent(TEMPORAL_EXTENT),
     )
 
-    region = Collection(
+    collection = Collection(
         id=f"NALCMS_{reg}",
         description=f"Land classification for {REGIONS[reg]}",
         extent=extent,
         title=f"NALCMS for {REGIONS[reg]}",
-        stac_extensions=None,
+        stac_extensions=[
+            "https://stac-extensions.github.io/projection/v1.0.0/schema.json",
+        ],
         license=COLLECTION_LICENSE,
-        summaries=Summaries(
-            {
-                "platform": sum([v["platform"] for v in SATELLITES.values()], []),
-                "instruments": sum([v["instruments"] for v in SATELLITES.values()], []),
-                "constellation": sum(
-                    [v["constellation"] for v in SATELLITES.values()], []
-                ),
-                "gsd": GSDS,
-            }
-        ),
+        summaries=Summaries({
+            "platform":
+            sum([v["platform"] for v in SATELLITES.values()], []),
+            "instruments":
+            sum([v["instruments"] for v in SATELLITES.values()], []),
+            "constellation":
+            sum([v["constellation"] for v in SATELLITES.values()], []),
+            "gsd":
+            GSDS,
+        }),
     )
 
-    return region
+    # Include projection information
+    proj_ext = SummariesProjectionExtension(collection)
+    proj_ext.epsg = list(
+        [v['epsg'] for k, v in PROJECTIONS.items() if reg in k])
+    proj_ext.wkt = list([v['wkt'] for k, v in PROJECTIONS.items() if reg in k])
+
+    return collection
 
 
 def create_item(reg, gsd, year) -> Item:
@@ -167,7 +170,8 @@ def create_item(reg, gsd, year) -> Item:
     diff = "change " if "-" in year else ""
     properties = {
         "title": f"{reg} land cover {diff}({year}, {gsd} m)",
-        "description": f"Land cover {diff}for {year} over {REGIONS[reg]} ({gsd} m)",
+        "description":
+        f"Land cover {diff}for {year} over {REGIONS[reg]} ({gsd} m)",
         "start_datetime": datetime.strptime(years[0], "%Y"),
         "end_datetime": datetime.strptime(years[-1], "%Y"),
         "gsd": gsd,
@@ -205,7 +209,8 @@ def create_item(reg, gsd, year) -> Item:
             href=data_href,
             media_type="application/zip",
             roles=["data"],
-            title="Data for land cover {diff}over {REGIONS[reg]} for {year} ({gsd} m)",
+            title=
+            "Data for land cover {diff}over {REGIONS[reg]} for {year} ({gsd} m)",
         ),
     )
 
