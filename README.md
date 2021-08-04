@@ -23,6 +23,8 @@ Description of the command line functions
 
 ```bash
 $ scripts/stac nalcms create-collection ./examples/collection.json
+
+$ scripts/stac nalcms create-item ./examples/item.json
 ```
 
 Use `stac nalcms --help` to see all subcommands and options.
