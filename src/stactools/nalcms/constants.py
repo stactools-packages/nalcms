@@ -1,3 +1,4 @@
+from typing import Any, Dict
 from pystac import Provider, ProviderRole
 from pystac.utils import str_to_datetime
 
@@ -27,10 +28,9 @@ TEMPORAL_EXTENT = [
 ]
 
 NRCAN_PROVIDER = Provider(
-    name=(
-        "Natural Resources Canada | Ressources naturelles Canada / Canada"
-        " Centre Mapping and Earth Observation | Centre Canadien de"
-        " cartographie et d’observation de la terre"),
+    name=("Natural Resources Canada | Ressources naturelles Canada / Canada"
+          " Centre Mapping and Earth Observation | Centre Canadien de"
+          " cartographie et d’observation de la terre"),
     roles=[ProviderRole.PRODUCER, ProviderRole.PROCESSOR],
     url="https://www.nrcan.gc.ca",
 )
@@ -72,20 +72,14 @@ REGIONS = {
     "HI": "Hawaii",
 }
 
-HREF_DIR = (
-    "http://www.cec.org/wp-content/uploads/wpallimport/files/Atlas/Files/")
+HREF_DIR = ("http://www.cec.org/wp-content/uploads/wpallimport/files/Atlas/Files/")
 
 HREFS_ZIP = {
-    "30m_2010-2015_CAN":
-    "land_cover_30m_2010-2015_landsat/lcchange_canada_2010_2015.zip",
-    "30m_2010-2015_MEX":
-    "land_cover_30m_2010-2015_landsat/lcchange_mexico_2010_2015.zip",
-    "30m_2010-2015_NA":
-    "land_cover_30m_2010-2015_landsat/lcchange_north_america_2010_2015.zip",
-    "30m_2010-2015_USA":
-    "land_cover_30m_2010-2015_landsat/lcchange_united_states_2010_2015.zip",
-    "30m_2010-2015_ASK":
-    "land_cover_30m_2010-2015_landsat/lcchange_united_states_2010_2015.zip",
+    "30m_2010-2015_CAN": "land_cover_30m_2010-2015_landsat/lcchange_canada_2010_2015.zip",
+    "30m_2010-2015_MEX": "land_cover_30m_2010-2015_landsat/lcchange_mexico_2010_2015.zip",
+    "30m_2010-2015_NA": "land_cover_30m_2010-2015_landsat/lcchange_north_america_2010_2015.zip",
+    "30m_2010-2015_USA": "land_cover_30m_2010-2015_landsat/lcchange_united_states_2010_2015.zip",
+    "30m_2010-2015_ASK": "land_cover_30m_2010-2015_landsat/lcchange_united_states_2010_2015.zip",
     "30m_2015_CAN": "2010nalcms30m/canada_2015_v2.zip",
     "30m_2015_MEX": "2010nalcms30m/mexico_2015_v2.zip",
     "30m_2015_NA": "2010nalcms30m/north_america_2015_v2.zip",
@@ -104,8 +98,7 @@ HREFS_ZIP = {
 }
 
 HREFS_METADATA = {
-    "30m_2010-2015":
-    "land_cover_30m_2010-2015_landsat/metadata_nalcms_2010_2015_30m.doc",
+    "30m_2010-2015": "land_cover_30m_2010-2015_landsat/metadata_nalcms_2010_2015_30m.doc",
     "30m_2015": "2010nalcms30m/nalcms_2015_30m_metadata_v2.doc",
     "30m_2010": "2010nalcms30m/nalcms_2010_30m_metadata.doc",
     "250m_2005-2010": "Land_Cover_05_10/Metadata_NALCMS_2005_2010.doc",
@@ -113,30 +106,22 @@ HREFS_METADATA = {
     "250m_2005": "Land_Cover_2005/Metadata_NALCMS_2005_v3.doc",
 }
 
-PROJECTIONS = {
+PROJECTIONS: Dict[str, Any] = {
     "30m_2010-2015_NA": {
         "epsg":
         None,
-        "wkt": (
-            'PROJCS[\"WGS_1984_Lambert_Azimuthal_Equal_Area\",GEOGCS[\"WGS'
-            ' 84\",DATUM[\"WGS_1984\",SPHEROID[\"WGS'
-            ' 84\",6378137,298.257223563,AUTHORITY[\"EPSG\",\"7030\"]],'
-            'AUTHORITY[\"EPSG\",\"6326\"]],PRIMEM[\"Greenwich\",0],UNIT'
-            '[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]]'
-            ',AUTHORITY[\"EPSG\",\"4326\"]],PROJECTION[\"Lambert_Azimuthal_'
-            'Equal_Area\"],PARAMETER[\"latitude_of_center\",45],PARAMETER[\"'
-            'longitude_of_center\",-100],PARAMETER[\"false_easting\",0],'
-            'PARAMETER[\"false_northing\",0],UNIT[\"metre\",1],AXIS[\"Easting'
-            '\",EAST],AXIS[\"Northing\",NORTH]]'
-        ),
-        "transform": [
-            30.0, 0.0, -4410000.000000002, 0.0, -30.0, 4309999.999999999, 0.0,
-            0.0, 1.0
-        ],
-        "bounds": [
-            -4410000.000000002, -3340000.000000001, 3345089.999999998,
-            4309999.999999999
-        ],
+        "wkt": ('PROJCS[\"WGS_1984_Lambert_Azimuthal_Equal_Area\",GEOGCS[\"WGS'
+                ' 84\",DATUM[\"WGS_1984\",SPHEROID[\"WGS'
+                ' 84\",6378137,298.257223563,AUTHORITY[\"EPSG\",\"7030\"]],'
+                'AUTHORITY[\"EPSG\",\"6326\"]],PRIMEM[\"Greenwich\",0],UNIT'
+                '[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]]'
+                ',AUTHORITY[\"EPSG\",\"4326\"]],PROJECTION[\"Lambert_Azimuthal_'
+                'Equal_Area\"],PARAMETER[\"latitude_of_center\",45],PARAMETER[\"'
+                'longitude_of_center\",-100],PARAMETER[\"false_easting\",0],'
+                'PARAMETER[\"false_northing\",0],UNIT[\"metre\",1],AXIS[\"Easting'
+                '\",EAST],AXIS[\"Northing\",NORTH]]'),
+        "transform": [30.0, 0.0, -4410000.000000002, 0.0, -30.0, 4309999.999999999, 0.0, 0.0, 1.0],
+        "bounds": [-4410000.000000002, -3340000.000000001, 3345089.999999998, 4309999.999999999],
         "shape": [255000, 258503]
     },
     "30m_2010-2015_USA": {
@@ -194,13 +179,11 @@ PROJECTIONS = {
         ],
     },
     "250m_2005-2010_NA": {
-        "epsg":
-        None,
+        "epsg": None,
         "shape": (35000, 37000),
         "wkt":
         'PROJCS["Sphere_ARC_INFO_Lambert_Azimuthal_Equal_Area",GEOGCS["GCS_Sphere_ARC_INFO",DATUM["Sphere_ARC_INFO",SPHEROID["Sphere_ARC_INFO",6370997,0]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]]],PROJECTION["Lambert_Azimuthal_Equal_Area"],PARAMETER["latitude_of_center",45],PARAMETER["longitude_of_center",-100],PARAMETER["false_easting",0],PARAMETER["false_northing",0],UNIT["metre",1],AXIS["Easting",EAST],AXIS["Northing",NORTH]]',  # noqa
-        "transform":
-        [250.0, 0.0, -4418000.0, 0.0, -250.0, 4876500.0, 0.0, 0.0, 1.0],
+        "transform": [250.0, 0.0, -4418000.0, 0.0, -250.0, 4876500.0, 0.0, 0.0, 1.0],
         "bounds": [-4418000.0, -3873500.0, 4832000.0, 4876500.0],
     },
     "30m_2015_NA": {
@@ -223,8 +206,7 @@ PROJECTIONS = {
             0.0,
             1.0,
         ],
-        "bounds":
-        [-4410000.0, -3339999.999999998, 3360000.0, 4310000.000000002],
+        "bounds": [-4410000.0, -3339999.999999998, 3360000.0, 4310000.000000002],
     },
     "30m_2010_CAN": {
         "epsg":
@@ -262,13 +244,11 @@ PROJECTIONS = {
             ' 84",DATUM["WGS_1984",SPHEROID["WGS'
             ' 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4326"]],PROJECTION["Lambert_Azimuthal_Equal_Area"],PARAMETER["latitude_of_center",45],PARAMETER["longitude_of_center",-100],PARAMETER["false_easting",0],PARAMETER["false_northing",0],UNIT["metre",1],AXIS["Easting",EAST],AXIS["Northing",NORTH]]'  # noqa
         ),
-        "transform":
-        [30.0, 0.0, -2043060.0, 0.0, -30.0, 732440.0, 0.0, 0.0, 1.0],
+        "transform": [30.0, 0.0, -2043060.0, 0.0, -30.0, 732440.0, 0.0, 0.0, 1.0],
         "bounds": [-2043060.0, -2113150.0, 2529600.0, 732440.0],
     },
     "250m_2005_HI": {
-        "epsg":
-        None,
+        "epsg": None,
         "shape": (2746, 2747),
         "wkt":
         'PROJCS["Sphere_ARC_INFO_Lambert_Azimuthal_Equal_Area",GEOGCS["GCS_Sphere_ARC_INFO",DATUM["D_Sphere_ARC_INFO",SPHEROID["Sphere_ARC_INFO",6370997,0]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]]],PROJECTION["Lambert_Azimuthal_Equal_Area"],PARAMETER["latitude_of_center",45],PARAMETER["longitude_of_center",-100],PARAMETER["false_easting",0],PARAMETER["false_northing",0],UNIT["metre",1],AXIS["Easting",EAST],AXIS["Northing",NORTH]]',  # noqa
@@ -286,13 +266,11 @@ PROJECTIONS = {
         "bounds": [-5907538.59, -1094735.46, -5220788.59, -408235.45999999996],
     },
     "250m_2005_NA": {
-        "epsg":
-        None,
+        "epsg": None,
         "shape": (35000, 37000),
         "wkt":
         'PROJCS["Sphere_ARC_INFO_Lambert_Azimuthal_Equal_Area",GEOGCS["GCS_Sphere_ARC_INFO",DATUM["D_Sphere_ARC_INFO",SPHEROID["Sphere_ARC_INFO",6370997,0]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]]],PROJECTION["Lambert_Azimuthal_Equal_Area"],PARAMETER["latitude_of_center",45],PARAMETER["longitude_of_center",-100],PARAMETER["false_easting",0],PARAMETER["false_northing",0],UNIT["metre",1],AXIS["Easting",EAST],AXIS["Northing",NORTH]]',  # noqa
-        "transform":
-        [250.0, 0.0, -4418000.0, 0.0, -250.0, 4876500.0, 0.0, 0.0, 1.0],
+        "transform": [250.0, 0.0, -4418000.0, 0.0, -250.0, 4876500.0, 0.0, 0.0, 1.0],
         "bounds": [-4418000.0, -3873500.0, 4832000.0, 4876500.0],
     },
     "30m_2010_NA": {
@@ -315,8 +293,7 @@ PROJECTIONS = {
             0.0,
             1.0,
         ],
-        "bounds":
-        [-4410000.0, -3339999.999999998, 3360000.0, 4310000.000000002],
+        "bounds": [-4410000.0, -3339999.999999998, 3360000.0, 4310000.000000002],
     },
     "30m_2010_ASK": {
         "epsg":
@@ -354,8 +331,7 @@ PROJECTIONS = {
             ' 84",DATUM["WGS_1984",SPHEROID["WGS'
             ' 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4326"]],PROJECTION["Lambert_Azimuthal_Equal_Area"],PARAMETER["latitude_of_center",45],PARAMETER["longitude_of_center",-100],PARAMETER["false_easting",0],PARAMETER["false_northing",0],UNIT["metre",1],AXIS["Easting",EAST],AXIS["Northing",NORTH]]'  # noqa
         ),
-        "transform":
-        [30.0, 0.0, -2043060.0, 0.0, -30.0, 732440.0, 0.0, 0.0, 1.0],
+        "transform": [30.0, 0.0, -2043060.0, 0.0, -30.0, 732440.0, 0.0, 0.0, 1.0],
         "bounds": [-2043060.0, -2113150.0, 2529600.0, 732440.0],
     },
     "30m_2010-2015_CAN": {
@@ -413,13 +389,11 @@ PROJECTIONS = {
         ],
     },
     "250m_2010_NA": {
-        "epsg":
-        None,
+        "epsg": None,
         "shape": (35000, 37000),
         "wkt":
         'PROJCS["Sphere_ARC_INFO_Lambert_Azimuthal_Equal_Area",GEOGCS["GCS_Sphere_ARC_INFO",DATUM["D_Sphere_ARC_INFO",SPHEROID["Sphere_ARC_INFO",6370997,0]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]]],PROJECTION["Lambert_Azimuthal_Equal_Area"],PARAMETER["latitude_of_center",45],PARAMETER["longitude_of_center",-100],PARAMETER["false_easting",0],PARAMETER["false_northing",0],UNIT["metre",1],AXIS["Easting",EAST],AXIS["Northing",NORTH]]',  # noqa
-        "transform":
-        [250.0, 0.0, -4418000.0, 0.0, -250.0, 4876500.0, 0.0, 0.0, 1.0],
+        "transform": [250.0, 0.0, -4418000.0, 0.0, -250.0, 4876500.0, 0.0, 0.0, 1.0],
         "bounds": [-4418000.0, -3873500.0, 4832000.0, 4876500.0],
     },
     "30m_2010-2015_ASK": {
@@ -532,7 +506,7 @@ PROJECTIONS = {
     },
 }
 
-SATELLITES = {
+SATELLITES: Dict[str, Any] = {
     "MODIS": {
         "platform": ["Terra", "Aqua"],
         "instruments": ["MODIS"],
@@ -552,81 +526,38 @@ SATELLITES = {
 
 # [xmin, ymin, xmax, ymax]]
 SPATIAL_EXTENTS = {
-    '30m_2010-2015_NA': [
-        6.039095198218554, -138.80536327065727, 61.779167675145786,
-        -12.078890175164888
-    ],
-    '30m_2010-2015_USA': [
-        23.787483432154772, -119.85104365308925, 46.6224821324055,
-        -65.75528285145232
-    ],
-    '30m_2010-2015_MEX': [
-        13.44506394052848, -115.99718179029607, 32.86560559417034,
-        -84.92776041622263
-    ],
-    '250m_2005-2010_NA': [
-        1.4279751101491476, -137.9896823788992, 48.812750584693504,
-        4.00508993290567
-    ],
-    '30m_2015_NA': [
-        6.03909519821859, -138.80536327065724, 61.65521507065405,
-        -11.985214988396194
-    ],
-    '30m_2010_CAN': [
-        39.2533440032893, -127.40853951132385, 61.779167675145786,
-        -12.078890175164927
-    ],
-    '30m_2015_USA': [
-        23.77189977813217, -119.90865307541915, 46.60242856037363,
-        -65.68212376216307
-    ],
-    '250m_2005_HI': [
-        16.590770667252958, -158.56422527873127, 25.272999705314227,
-        -155.70334942350803
-    ],
-    '250m_2005_NA': [
-        1.4279751101491476, -137.9896823788992, 48.812750584693504,
-        4.00508993290567
-    ],
-    '30m_2010_NA': [
-        6.03909519821859, -138.80536327065724, 61.65521507065405,
-        -11.985214988396194
-    ],
-    '30m_2010_ASK': [
-        42.11500192198557, -160.08863641682973, 76.46819003404057,
-        -169.90718473769746
-    ],
-    '30m_2010_USA': [
-        23.77189977813217, -119.90865307541915, 46.60242856037363,
-        -65.68212376216307
-    ],
-    '30m_2010-2015_CAN': [
-        40.01133370587668, -125.60914442737285, 61.73055142784825,
-        -12.740986140994792
-    ],
-    '30m_2015_CAN': [
-        39.2533440032893, -127.40853951132385, 61.779167675145786,
-        -12.078890175164927
-    ],
-    '250m_2010_NA': [
-        1.4279751101491476, -137.9896823788992, 48.812750584693504,
-        4.00508993290567
-    ],
-    '30m_2010-2015_ASK': [
-        42.39568114622015, -159.8770017408243, 74.52942862431979,
-        -157.1492915384077
-    ],
-    '30m_2015_ASK': [
-        42.11500192198557, -160.08863641682973, 76.46819003404057,
-        -169.90718473769746
-    ],
-    '30m_2015_MEX': [
-        13.102845359730296, -115.97332960180964, 32.86800574186697,
-        -84.91821332299581
-    ],
+    '30m_2010-2015_NA':
+    [6.039095198218554, -138.80536327065727, 61.779167675145786, -12.078890175164888],
+    '30m_2010-2015_USA':
+    [23.787483432154772, -119.85104365308925, 46.6224821324055, -65.75528285145232],
+    '30m_2010-2015_MEX':
+    [13.44506394052848, -115.99718179029607, 32.86560559417034, -84.92776041622263],
+    '250m_2005-2010_NA':
+    [1.4279751101491476, -137.9896823788992, 48.812750584693504, 4.00508993290567],
+    '30m_2015_NA': [6.03909519821859, -138.80536327065724, 61.65521507065405, -11.985214988396194],
+    '30m_2010_CAN':
+    [39.2533440032893, -127.40853951132385, 61.779167675145786, -12.078890175164927],
+    '30m_2015_USA': [23.77189977813217, -119.90865307541915, 46.60242856037363, -65.68212376216307],
+    '250m_2005_HI':
+    [16.590770667252958, -158.56422527873127, 25.272999705314227, -155.70334942350803],
+    '250m_2005_NA': [1.4279751101491476, -137.9896823788992, 48.812750584693504, 4.00508993290567],
+    '30m_2010_NA': [6.03909519821859, -138.80536327065724, 61.65521507065405, -11.985214988396194],
+    '30m_2010_ASK':
+    [42.11500192198557, -160.08863641682973, 76.46819003404057, -169.90718473769746],
+    '30m_2010_USA': [23.77189977813217, -119.90865307541915, 46.60242856037363, -65.68212376216307],
+    '30m_2010-2015_CAN':
+    [40.01133370587668, -125.60914442737285, 61.73055142784825, -12.740986140994792],
+    '30m_2015_CAN':
+    [39.2533440032893, -127.40853951132385, 61.779167675145786, -12.078890175164927],
+    '250m_2010_NA': [1.4279751101491476, -137.9896823788992, 48.812750584693504, 4.00508993290567],
+    '30m_2010-2015_ASK':
+    [42.39568114622015, -159.8770017408243, 74.52942862431979, -157.1492915384077],
+    '30m_2015_ASK':
+    [42.11500192198557, -160.08863641682973, 76.46819003404057, -169.90718473769746],
+    '30m_2015_MEX':
+    [13.102845359730296, -115.97332960180964, 32.86800574186697, -84.91821332299581],
     '30m_2010_MEX': [
-        13.102845359730296, -115.97332960180964, 32.86800574186697,
-        -84.91821332299581
+        13.102845359730296, -115.97332960180964, 32.86800574186697, -84.91821332299581
     ]
 }
 
@@ -721,9 +652,8 @@ FILE_SIZES = {
 }
 
 DOI = "10.1201/b11964-24"
-CITATION = (
-    "Latifovic, Rasim & Homer, Collin & Ressl, Rainer & Pouliot, D.A."
-    " & Hossian, S. & Colditz, Rene & Olthof, Ian & Chandra, Giri & Victoria,"
-    " Arturo. (2012). North American Land Change Monitoring System. Remote"
-    " Sensing of Land Use and Land Cover: Principles and Applications."
-    " 303-324. 10.1201/b11964-24.")
+CITATION = ("Latifovic, Rasim & Homer, Collin & Ressl, Rainer & Pouliot, D.A."
+            " & Hossian, S. & Colditz, Rene & Olthof, Ian & Chandra, Giri & Victoria,"
+            " Arturo. (2012). North American Land Change Monitoring System. Remote"
+            " Sensing of Land Use and Land Cover: Principles and Applications."
+            " 303-324. 10.1201/b11964-24.")
