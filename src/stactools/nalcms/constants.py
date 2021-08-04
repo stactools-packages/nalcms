@@ -1,5 +1,5 @@
-from datetime import datetime
 from pystac import Provider, ProviderRole
+from pystac.utils import str_to_datetime
 
 COLLECTION_ID = "nalcms"
 COLLECTION_EPSG = 3978
@@ -20,7 +20,7 @@ COLLECTION_DESCRIPTION = (
 # [west, east, noth, south]
 # SPATIAL_EXTENT = [-170.0, -50.0, 84.0, 14.0]
 TEMPORAL_EXTENT = [
-    datetime(2005, 1, 1),
+    str_to_datetime("2005, 1, 1"),
     None,
 ]
 
@@ -95,7 +95,7 @@ HREFS_ZIP = {
     "30m_2010_ASK": "2010nalcms30m/united_states_2010.zip",
     "250m_2005-2010_NA": "Land_Cover_05_10/LC_05-10_change_TIFF.zip",
     "250m_2010_NA": "Land_Cover_2010/Land_Cover_2010v2_TIFF.zip",
-    "250m_2010_HI": "Land_Cover_2010/Land_Cover_2010v2_TIFF.zip",
+    # "250m_2010_HI": "Land_Cover_2010/Land_Cover_2010v2_TIFF.zip",
     "250m_2005_NA": "Land_Cover_2005/Land_Cover_2005v3_TIFF.zip",
     "250m_2005_HI": "Land_Cover_2005/Land_Cover_2005v3_TIFF.zip",
 }
@@ -111,10 +111,24 @@ HREFS_METADATA = {
 }
 
 PROJECTIONS = {
+    "30m_2010-2015_NA": {
+        "epsg": None,
+        "wkt":
+        'PROJCS[\"WGS_1984_Lambert_Azimuthal_Equal_Area\",GEOGCS[\"WGS 84\",DATUM[\"WGS_1984\",SPHEROID[\"WGS 84\",6378137,298.257223563,AUTHORITY[\"EPSG\",\"7030\"]],AUTHORITY[\"EPSG\",\"6326\"]],PRIMEM[\"Greenwich\",0],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]],AUTHORITY[\"EPSG\",\"4326\"]],PROJECTION[\"Lambert_Azimuthal_Equal_Area\"],PARAMETER[\"latitude_of_center\",45],PARAMETER[\"longitude_of_center\",-100],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]',
+        "transform": [
+            30.0, 0.0, -4410000.000000002, 0.0, -30.0, 4309999.999999999, 0.0,
+            0.0, 1.0
+        ],
+        "bounds": [
+            -4410000.000000002, -3340000.000000001, 3345089.999999998,
+            4309999.999999999
+        ],
+        "shape": [255000, 258503]
+    },
     "30m_2010-2015_USA": {
         "epsg":
         None,
-        "shape":(94832, 152022),
+        "shape": (94832, 152022),
         "wkt": (
             'PROJCS["WGS_1984_Lambert_Azimuthal_Equal_Area",GEOGCS["WGS'
             ' 84",DATUM["WGS_1984",SPHEROID["WGS'
@@ -141,7 +155,7 @@ PROJECTIONS = {
     "30m_2010-2015_MEX": {
         "epsg":
         None,
-        "shape":(69426, 106596),
+        "shape": (69426, 106596),
         "wkt": (
             'PROJCS["WGS_1984_Lambert_Azimuthal_Equal_Area",GEOGCS["WGS'
             ' 84",DATUM["WGS_1984",SPHEROID["WGS'
@@ -168,7 +182,7 @@ PROJECTIONS = {
     "250m_2005-2010_NA": {
         "epsg":
         None,
-        "shape":(35000, 37000),
+        "shape": (35000, 37000),
         "wkt":
         'PROJCS["Sphere_ARC_INFO_Lambert_Azimuthal_Equal_Area",GEOGCS["GCS_Sphere_ARC_INFO",DATUM["Sphere_ARC_INFO",SPHEROID["Sphere_ARC_INFO",6370997,0]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]]],PROJECTION["Lambert_Azimuthal_Equal_Area"],PARAMETER["latitude_of_center",45],PARAMETER["longitude_of_center",-100],PARAMETER["false_easting",0],PARAMETER["false_northing",0],UNIT["metre",1],AXIS["Easting",EAST],AXIS["Northing",NORTH]]',  # noqa
         "transform":
@@ -178,7 +192,7 @@ PROJECTIONS = {
     "30m_2015_NA": {
         "epsg":
         None,
-        "shape":(255000, 259000),
+        "shape": (255000, 259000),
         "wkt": (
             'PROJCS["WGS_1984_Lambert_Azimuthal_Equal_Area",GEOGCS["WGS'
             ' 84",DATUM["WGS_1984",SPHEROID["WGS'
@@ -201,7 +215,7 @@ PROJECTIONS = {
     "30m_2010_CAN": {
         "epsg":
         None,
-        "shape":(152010, 188680),
+        "shape": (152010, 188680),
         "wkt": (
             'PROJCS["WGS_1984_Lambert_Azimuthal_Equal_Area",GEOGCS["WGS'
             ' 84",DATUM["WGS_1984",SPHEROID["WGS'
@@ -228,7 +242,7 @@ PROJECTIONS = {
     "30m_2015_USA": {
         "epsg":
         None,
-        "shape":(94853, 152422),
+        "shape": (94853, 152422),
         "wkt": (
             'PROJCS["WGS_1984_Lambert_Azimuthal_Equal_Area",GEOGCS["WGS'
             ' 84",DATUM["WGS_1984",SPHEROID["WGS'
@@ -241,7 +255,7 @@ PROJECTIONS = {
     "250m_2005_HI": {
         "epsg":
         None,
-        "shape":(2746, 2747),
+        "shape": (2746, 2747),
         "wkt":
         'PROJCS["Sphere_ARC_INFO_Lambert_Azimuthal_Equal_Area",GEOGCS["GCS_Sphere_ARC_INFO",DATUM["D_Sphere_ARC_INFO",SPHEROID["Sphere_ARC_INFO",6370997,0]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]]],PROJECTION["Lambert_Azimuthal_Equal_Area"],PARAMETER["latitude_of_center",45],PARAMETER["longitude_of_center",-100],PARAMETER["false_easting",0],PARAMETER["false_northing",0],UNIT["metre",1],AXIS["Easting",EAST],AXIS["Northing",NORTH]]',  # noqa
         "transform": [
@@ -260,7 +274,7 @@ PROJECTIONS = {
     "250m_2005_NA": {
         "epsg":
         None,
-        "shape":(35000, 37000),
+        "shape": (35000, 37000),
         "wkt":
         'PROJCS["Sphere_ARC_INFO_Lambert_Azimuthal_Equal_Area",GEOGCS["GCS_Sphere_ARC_INFO",DATUM["D_Sphere_ARC_INFO",SPHEROID["Sphere_ARC_INFO",6370997,0]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]]],PROJECTION["Lambert_Azimuthal_Equal_Area"],PARAMETER["latitude_of_center",45],PARAMETER["longitude_of_center",-100],PARAMETER["false_easting",0],PARAMETER["false_northing",0],UNIT["metre",1],AXIS["Easting",EAST],AXIS["Northing",NORTH]]',  # noqa
         "transform":
@@ -270,7 +284,7 @@ PROJECTIONS = {
     "30m_2010_NA": {
         "epsg":
         None,
-        "shape":(255000, 259000),
+        "shape": (255000, 259000),
         "wkt": (
             'PROJCS["WGS_1984_Lambert_Azimuthal_Equal_Area",GEOGCS["WGS'
             ' 84",DATUM["WGS_1984",SPHEROID["WGS'
@@ -293,7 +307,7 @@ PROJECTIONS = {
     "30m_2010_ASK": {
         "epsg":
         None,
-        "shape":(95217, 96771),
+        "shape": (95217, 96771),
         "wkt": (
             'PROJCS["WGS_1984_Lambert_Azimuthal_Equal_Area",GEOGCS["WGS'
             ' 84",DATUM["WGS_1984",SPHEROID["WGS'
@@ -320,7 +334,7 @@ PROJECTIONS = {
     "30m_2010_USA": {
         "epsg":
         None,
-        "shape":(94853, 152422),
+        "shape": (94853, 152422),
         "wkt": (
             'PROJCS["WGS_1984_Lambert_Azimuthal_Equal_Area",GEOGCS["WGS'
             ' 84",DATUM["WGS_1984",SPHEROID["WGS'
@@ -333,7 +347,7 @@ PROJECTIONS = {
     "30m_2010-2015_CAN": {
         "epsg":
         None,
-        "shape":(149794, 183005),
+        "shape": (149794, 183005),
         "wkt": (
             'PROJCS["WGS_1984_Lambert_Azimuthal_Equal_Area",GEOGCS["WGS'
             ' 84",DATUM["WGS_1984",SPHEROID["WGS'
@@ -360,7 +374,7 @@ PROJECTIONS = {
     "30m_2015_CAN": {
         "epsg":
         None,
-        "shape":(152010, 188680),
+        "shape": (152010, 188680),
         "wkt": (
             'PROJCS["WGS_1984_Lambert_Azimuthal_Equal_Area",GEOGCS["WGS'
             ' 84",DATUM["WGS_1984",SPHEROID["WGS'
@@ -387,7 +401,7 @@ PROJECTIONS = {
     "250m_2010_NA": {
         "epsg":
         None,
-        "shape":(35000, 37000),
+        "shape": (35000, 37000),
         "wkt":
         'PROJCS["Sphere_ARC_INFO_Lambert_Azimuthal_Equal_Area",GEOGCS["GCS_Sphere_ARC_INFO",DATUM["D_Sphere_ARC_INFO",SPHEROID["Sphere_ARC_INFO",6370997,0]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]]],PROJECTION["Lambert_Azimuthal_Equal_Area"],PARAMETER["latitude_of_center",45],PARAMETER["longitude_of_center",-100],PARAMETER["false_easting",0],PARAMETER["false_northing",0],UNIT["metre",1],AXIS["Easting",EAST],AXIS["Northing",NORTH]]',  # noqa
         "transform":
@@ -397,7 +411,7 @@ PROJECTIONS = {
     "30m_2010-2015_ASK": {
         "epsg":
         None,
-        "shape":(81578, 95265),
+        "shape": (81578, 95265),
         "wkt": (
             'PROJCS["WGS_1984_Lambert_Azimuthal_Equal_Area",GEOGCS["WGS'
             ' 84",DATUM["WGS_1984",SPHEROID["WGS'
@@ -424,7 +438,7 @@ PROJECTIONS = {
     "30m_2015_ASK": {
         "epsg":
         None,
-        "shape":(95217, 96771),
+        "shape": (95217, 96771),
         "wkt": (
             'PROJCS["WGS_1984_Lambert_Azimuthal_Equal_Area",GEOGCS["WGS'
             ' 84",DATUM["WGS_1984",SPHEROID["WGS'
@@ -451,7 +465,7 @@ PROJECTIONS = {
     "30m_2015_MEX": {
         "epsg":
         None,
-        "shape":(70668, 106671),
+        "shape": (70668, 106671),
         "wkt": (
             'PROJCS["WGS_1984_Lambert_Azimuthal_Equal_Area",GEOGCS["WGS'
             ' 84",DATUM["WGS_1984",SPHEROID["WGS'
@@ -478,7 +492,7 @@ PROJECTIONS = {
     "30m_2010_MEX": {
         "epsg":
         None,
-        "shape":(70668, 106671),
+        "shape": (70668, 106671),
         "wkt": (
             'PROJCS["WGS_1984_Lambert_Azimuthal_Equal_Area",GEOGCS["WGS'
             ' 84",DATUM["WGS_1984",SPHEROID["WGS'
@@ -524,6 +538,10 @@ SATELLITES = {
 
 # [xmin, ymin, xmax, ymax]]
 SPATIAL_EXTENTS = {
+    '30m_2010-2015_NA': [
+        6.039095198218554, -138.80536327065727, 61.779167675145786,
+        -12.078890175164888
+    ],
     '30m_2010-2015_USA': [
         23.787483432154772, -119.85104365308925, 46.6224821324055,
         -65.75528285145232
@@ -601,6 +619,7 @@ SPATIAL_EXTENTS = {
 KEYWORDS = ["NALCMS", "Landsat 7", "RapidEye", "North America", "MODIS"]
 
 NODATA = {
+    '30m_2010-2015_NA': 65535.0,
     '30m_2010-2015_USA': 65535.0,
     '30m_2010-2015_MEX': 65535.0,
     '250m_2005-2010_NA': None,
@@ -622,6 +641,7 @@ NODATA = {
 }
 
 DATA_TYPE = {
+    '30m_2010-2015_NA': 'uint16',
     '30m_2010-2015_USA': 'uint16',
     '30m_2010-2015_MEX': 'uint16',
     '250m_2005-2010_NA': 'uint16',
@@ -643,28 +663,29 @@ DATA_TYPE = {
 }
 
 VALUES = {
-    1:"Temperate or sub-polar needleleaf forest",
-    2:"Sub-polar taiga needleleaf forest",
-    3:"Tropical or sub-tropical broadleaf evergreen forest",
-    4:"Tropical or sub-tropical broadleaf deciduous forest",
-    5:"Temperate or sub-polar broadleaf deciduous forest",
-    6:"Mixed forest",
-    7:"Tropical or sub-tropical shrubland",
-    8:"Temperate or sub-polar shrubland",
-    9:"Tropical or sub-tropical grassland",
-    10:"Temperate or sub-polar grassland",
-    11:"Sub-polar or polar shrubland-lichen-moss",
-    12:"Sub-polar or polar grassland-lichen-moss",
-    13:"Sub-polar or polar barren-lichen-moss",
-    14:"Wetland",
-    15:"Cropland",
-    16:"Barren lands",
-    17:"Urban and built-up",
-    18:"Water",
-    19:"Snow and ice"
+    1: "Temperate or sub-polar needleleaf forest",
+    2: "Sub-polar taiga needleleaf forest",
+    3: "Tropical or sub-tropical broadleaf evergreen forest",
+    4: "Tropical or sub-tropical broadleaf deciduous forest",
+    5: "Temperate or sub-polar broadleaf deciduous forest",
+    6: "Mixed forest",
+    7: "Tropical or sub-tropical shrubland",
+    8: "Temperate or sub-polar shrubland",
+    9: "Tropical or sub-tropical grassland",
+    10: "Temperate or sub-polar grassland",
+    11: "Sub-polar or polar shrubland-lichen-moss",
+    12: "Sub-polar or polar grassland-lichen-moss",
+    13: "Sub-polar or polar barren-lichen-moss",
+    14: "Wetland",
+    15: "Cropland",
+    16: "Barren lands",
+    17: "Urban and built-up",
+    18: "Water",
+    19: "Snow and ice"
 }
 
 FILE_SIZES = {
+    '30m_2010-2015_NA': 1674800213,
     '30m_2010-2015_USA': 588295657,
     '30m_2010-2015_MEX': 215525299,
     '250m_2005-2010_NA': 2590562610,

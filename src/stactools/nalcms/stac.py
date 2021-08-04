@@ -1,7 +1,6 @@
 import logging
 import os
 from shapely.geometry import box
-from datetime import datetime
 import itertools as it
 
 from pystac import (Collection, Asset, Extent, SpatialExtent, TemporalExtent,
@@ -14,6 +13,7 @@ from pystac.extensions.raster import RasterExtension
 from pystac.extensions.file import FileExtension
 from pystac.item import Item
 from pystac.summaries import Summaries
+from pystac.utils import str_to_datetime
 
 from stactools.nalcms.constants import (
     CITATION,
@@ -51,8 +51,6 @@ values_change = [{
     "value": [int(f"{v1}{str(v2).zfill(2)}")],
     "summary": f'"{VALUES[v1]}" to "{VALUES[v2]}"'
 } for v1, v2 in it.product(VALUES.keys(), VALUES.keys())]
-
-range()
 
 
 def create_nalcms_collection() -> Collection:
@@ -98,15 +96,15 @@ def create_nalcms_collection() -> Collection:
 
     # Include projection information
     proj_ext = SummariesProjectionExtension(collection)
-    proj_ext.epsg = list([v['epsg'] for v in PROJECTIONS.values()])
-    proj_ext.wkt = list([v['wkt'] for v in PROJECTIONS.values()])
+    proj_ext.epsg = list(set([v['epsg'] for v in PROJECTIONS.values()]))
+    proj_ext.wkt = list(set([v['wkt'] for v in PROJECTIONS.values()]))
 
     scientific = ScientificExtension.ext(collection, add_if_missing=True)
     scientific.doi = DOI
     scientific.citation = CITATION
 
-    item_assets = ItemAssetsExtension.ext(collection, add_if_missing=True)
-    item_assets.item_assets = ITEM_ASSETS
+    # item_assets = ItemAssetsExtension.ext(collection, add_if_missing=True)
+    # item_assets.item_assets = ITEM_ASSETS
 
     for metadata in HREFS_METADATA.items():
         collection.add_asset(
@@ -129,7 +127,7 @@ def create_region_collection(reg) -> Collection:
     """
     TODO
     """
-    extents = [v for k, v in SPATIAL_EXTENTS.items if reg in k]
+    extents = [v for k, v in SPATIAL_EXTENTS.items() if reg in k]
     extent = Extent(
         SpatialExtent([bounding_extent(extents)]),
         TemporalExtent(TEMPORAL_EXTENT),
@@ -141,6 +139,9 @@ def create_region_collection(reg) -> Collection:
         extent=extent,
         title=f"NALCMS for {REGIONS[reg]}",
         license=COLLECTION_LICENSE,
+        stac_extensions=[
+            "https://stac-extensions.github.io/projection/v1.0.0/schema.json"
+        ],
         summaries=Summaries({
             "platform":
             sum([v["platform"] for v in SATELLITES.values()], []),
@@ -154,10 +155,10 @@ def create_region_collection(reg) -> Collection:
     )
 
     # Include projection information
-    proj_ext = SummariesProjectionExtension(collection, add_if_missing=True)
-    proj_ext.epsg = list(
-        [v['epsg'] for k, v in PROJECTIONS.items() if reg in k])
-    proj_ext.wkt = list([v['wkt'] for k, v in PROJECTIONS.items() if reg in k])
+    proj_ext = SummariesProjectionExtension(collection)
+    proj_ext.epsg = list(set(
+        [v['epsg'] for k, v in PROJECTIONS.items() if reg in k]))
+    proj_ext.wkt = list(set([v['wkt'] for k, v in PROJECTIONS.items() if reg in k]))
 
     return collection
 
@@ -181,8 +182,8 @@ def create_item(reg, gsd, year) -> Item:
         "title": f"{reg} land cover {diff}({year}, {gsd} m)",
         "description":
         f"Land cover {diff}for {year} over {REGIONS[reg]} ({gsd} m)",
-        "start_datetime": datetime.strptime(years[0], "%Y"),
-        "end_datetime": datetime.strptime(years[-1], "%Y"),
+        "start_datetime": str_to_datetime(f"{years[0]}, 1, 1"),
+        "end_datetime": str_to_datetime(f"{years[-1]}, 12, 31"),
         "gsd": gsd,
     }
 
@@ -191,7 +192,7 @@ def create_item(reg, gsd, year) -> Item:
         id=f"{reg}_{year}_{gsd}m",
         geometry=geometry,
         bbox=bbox,
-        datetime=datetime.strptime(years[0], "%Y"),
+        datetime=str_to_datetime(f"{years[0]}, 1, 1"),
         properties=properties,
     )
 
@@ -251,11 +252,11 @@ def build_nalcms() -> Collection:
         region = create_region_collection(reg)
         nalcms.add_child(region)
 
-        for gsd, year in [(g, y) for g in GSDS for y in YEARS]:
-            if (gsd == 250) and (reg != "NA"):
-                continue
-            item = create_item(reg, gsd, year)
-            region.add_child(item)
+        for gsd in GSDS:
+            for year in YEARS[gsd]:
+                if f"{gsd}m_{year}_{reg}" in HREFS_ZIP.keys():
+                    item = create_item(reg, gsd, year)
+                    region.add_item(item)
 
     return nalcms
 
