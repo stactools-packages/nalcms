@@ -8,8 +8,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Added
 
-- Added Constants.py from metadata.
+- Added constants.py from metadata.
 - Added STAC Collection creation.
+- Added STAC Item creation.
 
 ### Deprecated
 
