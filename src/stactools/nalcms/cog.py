@@ -13,7 +13,8 @@ def create_cog(
     """Create COG from a tif
 
     Args:
-        input_path (str): Path to the North American Land Change Monitoring System data.
+        input_path (str): Path to the North American Land Change Monitoring
+         System data.
         output_path (str): The path to which the COG will be written.
         raise_on_fail (bool, optional): Whether to raise error on failure.
             Defaults to True.
@@ -61,19 +62,3 @@ def create_cog(
             raise
 
     return output_path
-
-
-# def include_cog_asset(item, cog_path):
-#     """Mutate a STAC item to include a COG at cog_path as an asset."""
-#     # Include the COG as an asset
-#     cog_filename = os.path.basename(cog_path)
-#     title = [v for k, v in image_types.items() if k in cog_filename][0]
-#     item.add_asset(
-#         title,
-#         pystac.Asset(
-#             href=cog_path, media_type=pystac.MediaType.COG, roles=["data"],
-#             title=title
-#         ),
-#     )
-
-#     item.assets[title] = asset

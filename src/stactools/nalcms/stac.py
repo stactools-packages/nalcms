@@ -2,12 +2,13 @@ import logging
 import os
 from shapely.geometry import box
 import itertools as it
+from typing import Union
 
 from pystac import (Collection, Asset, Extent, SpatialExtent, TemporalExtent,
                     CatalogType, MediaType)
 
-from pystac.extensions.item_assets import ItemAssetsExtension
-from pystac.extensions.projection import SummariesProjectionExtension, ProjectionExtension
+from pystac.extensions.projection import (SummariesProjectionExtension,
+                                          ProjectionExtension)
 from pystac.extensions.scientific import ScientificExtension
 from pystac.extensions.raster import RasterExtension
 from pystac.extensions.file import FileExtension
@@ -41,7 +42,6 @@ from stactools.nalcms.constants import (
     CEC_PROVIDER,
     HREFS_METADATA,
     VALUES,
-    YEARS,
 )
 
 logger = logging.getLogger(__name__)
@@ -54,9 +54,12 @@ values_change = [{
 
 
 def create_nalcms_collection() -> Collection:
-    """Create a STAC Collection for North American Land Change Monitoring System Data
+    """Create a STAC Collection for North American Land Change Monitoring System
+     Data.
 
-    These are cartographic products and are intended to be interpreted at the resolution identified.
+    These are cartographic products and are intended to be interpreted at the
+     resolution identified.
+
     Read the original metadata for data caveats.
 
     Returns:
@@ -123,7 +126,7 @@ def create_nalcms_collection() -> Collection:
     return collection
 
 
-def create_region_collection(reg) -> Collection:
+def create_region_collection(reg: str) -> Collection:
     """
     TODO
     """
@@ -156,18 +159,23 @@ def create_region_collection(reg) -> Collection:
 
     # Include projection information
     proj_ext = SummariesProjectionExtension(collection)
-    proj_ext.epsg = list(set(
-        [v['epsg'] for k, v in PROJECTIONS.items() if reg in k]))
-    proj_ext.wkt = list(set([v['wkt'] for k, v in PROJECTIONS.items() if reg in k]))
+    proj_ext.epsg = list(
+        set([v['epsg'] for k, v in PROJECTIONS.items() if reg in k]))
+    proj_ext.wkt = list(
+        set([v['wkt'] for k, v in PROJECTIONS.items() if reg in k]))
 
     return collection
 
 
-def create_item(reg, gsd, year) -> Item:
-    """
+def create_item(reg: str, gsd: Union[int, float], year: str,
+                source: str) -> Item:
+    """Creates a STAC Item
     TODO
     """
     constants_key = f"{gsd}m_{year}_{reg}"
+
+    if constants_key not in HREFS_ZIP.keys():
+        return
 
     # bbox and geometry
     bbox = SPATIAL_EXTENTS[constants_key]
@@ -182,8 +190,8 @@ def create_item(reg, gsd, year) -> Item:
         "title": f"{reg} land cover {diff}({year}, {gsd} m)",
         "description":
         f"Land cover {diff}for {year} over {REGIONS[reg]} ({gsd} m)",
-        "start_datetime": str_to_datetime(f"{years[0]}, 1, 1"),
-        "end_datetime": str_to_datetime(f"{years[-1]}, 12, 31"),
+        "start_datetime": f"{years[0]}-01-01T00:00:00Z",
+        "end_datetime": f"{years[-1]}-12-31T00:00:00Z",
         "gsd": gsd,
     }
 
@@ -204,18 +212,23 @@ def create_item(reg, gsd, year) -> Item:
             href=metadata_href,
             media_type=MediaType.JSON,
             roles=["metadata"],
-            title="Metadata for land cover {diff}for {year} ({gsd} m)",
+            title=f"Metadata for land cover {diff}for {year} ({gsd} m)",
         ),
     )
 
     # Create source data asset
-    data_href = os.path.join(HREF_DIR, HREFS_ZIP[f"{gsd}m_{year}_{reg}"])
+    if source:
+        data_href = source
+    else:
+        data_href = os.path.join(HREF_DIR, HREFS_ZIP[f"{gsd}m_{year}_{reg}"])
     data_asset = Asset(
         href=data_href,
-        media_type="application/zip",
+        media_type="application/zip" if not source else MediaType.COG,
         roles=["data"],
-        title=
-        "Data for land cover {diff}over {REGIONS[reg]} for {year} ({gsd} m)",
+        title=(
+            f"Data for land cover {diff}over "
+            f"{REGIONS[reg]} for {year} ({gsd} m)"
+            ),
     )
     item.add_asset("data", data_asset)
 
@@ -241,27 +254,7 @@ def create_item(reg, gsd, year) -> Item:
     return item
 
 
-def build_nalcms() -> Collection:
-    """
-    TODO
-    """
-
-    nalcms = create_nalcms_collection()
-
-    for reg in REGIONS.keys():
-        region = create_region_collection(reg)
-        nalcms.add_child(region)
-
-        for gsd in GSDS:
-            for year in YEARS[gsd]:
-                if f"{gsd}m_{year}_{reg}" in HREFS_ZIP.keys():
-                    item = create_item(reg, gsd, year)
-                    region.add_item(item)
-
-    return nalcms
-
-
-def bounding_extent(extents):
+def bounding_extent(extents: list) -> list:
     """Find the outer extent of a list of extents
     """
     xmin = min(extent[0] for extent in extents)

@@ -7,14 +7,16 @@ COLLECTION_TITLE = "North American Land Change Monitoring System data"
 COLLECTION_LICENSE = "proprietary"
 
 COLLECTION_DESCRIPTION = (
-    "NALCMS products can be used for a variety of applications, including: carbon sequestration"
-    " analysis, wildlife habitat mapping, ecosystem monitoring, environmental planning, water"
-    " quality assessments, and evaluation of biofuels production potential.The maps produced under"
-    " this initiative represent land cover in 2005, 2010, and 2015, and are based on either"
-    " Moderate Resolution Imaging Spectroradiometer (MODIS) satellite imagery monthly composites at"
-    " 250 m spatial resolution; Landsat-7; or RapidEye satellite imagery at 30 m spatial"
-    " resolution. The NALCMS’ nineteen land cover classes are based on the Land Cover"
-    " Classification System (LCCS) standard developed by the Food and Agriculture Organization"
+    "NALCMS products can be used for a variety of applications, including:"
+    " carbon sequestration analysis, wildlife habitat mapping, ecosystem"
+    " monitoring, environmental planning, water quality assessments, and"
+    " evaluation of biofuels production potential.The maps produced under this"
+    " initiative represent land cover in 2005, 2010, and 2015, & are based on"
+    " either Moderate Resolution Imaging Spectroradiometer (MODIS) satellite"
+    " imagery monthly composites at 250 m spatial resolution; Landsat-7; or"
+    " RapidEye satellite imagery at 30 m spatial resolution. The NALCMS’"
+    " nineteen land cover classes are based on the Land Cover Classification"
+    " System (LCCS) standard developed by the Food & Agriculture Organization"
     " (FAO) of the United Nations.")
 # [xmin, ymin, xmax, ymax]]
 # [west, east, noth, south]
@@ -25,10 +27,10 @@ TEMPORAL_EXTENT = [
 ]
 
 NRCAN_PROVIDER = Provider(
-    name=
-    ("Natural Resources Canada | Ressources naturelles Canada / Canada Centre Mapping and Earth"
-     " Observation | Centre Canadien de cartographie et d’observation de la terre"
-     ),
+    name=(
+        "Natural Resources Canada | Ressources naturelles Canada / Canada"
+        " Centre Mapping and Earth Observation | Centre Canadien de"
+        " cartographie et d’observation de la terre"),
     roles=[ProviderRole.PRODUCER, ProviderRole.PROCESSOR],
     url="https://www.nrcan.gc.ca",
 )
@@ -70,7 +72,8 @@ REGIONS = {
     "HI": "Hawaii",
 }
 
-HREF_DIR = "http://www.cec.org/wp-content/uploads/wpallimport/files/Atlas/Files/"
+HREF_DIR = (
+    "http://www.cec.org/wp-content/uploads/wpallimport/files/Atlas/Files/")
 
 HREFS_ZIP = {
     "30m_2010-2015_CAN":
@@ -112,9 +115,20 @@ HREFS_METADATA = {
 
 PROJECTIONS = {
     "30m_2010-2015_NA": {
-        "epsg": None,
-        "wkt":
-        'PROJCS[\"WGS_1984_Lambert_Azimuthal_Equal_Area\",GEOGCS[\"WGS 84\",DATUM[\"WGS_1984\",SPHEROID[\"WGS 84\",6378137,298.257223563,AUTHORITY[\"EPSG\",\"7030\"]],AUTHORITY[\"EPSG\",\"6326\"]],PRIMEM[\"Greenwich\",0],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]],AUTHORITY[\"EPSG\",\"4326\"]],PROJECTION[\"Lambert_Azimuthal_Equal_Area\"],PARAMETER[\"latitude_of_center\",45],PARAMETER[\"longitude_of_center\",-100],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]',
+        "epsg":
+        None,
+        "wkt": (
+            'PROJCS[\"WGS_1984_Lambert_Azimuthal_Equal_Area\",GEOGCS[\"WGS'
+            ' 84\",DATUM[\"WGS_1984\",SPHEROID[\"WGS'
+            ' 84\",6378137,298.257223563,AUTHORITY[\"EPSG\",\"7030\"]],'
+            'AUTHORITY[\"EPSG\",\"6326\"]],PRIMEM[\"Greenwich\",0],UNIT'
+            '[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]]'
+            ',AUTHORITY[\"EPSG\",\"4326\"]],PROJECTION[\"Lambert_Azimuthal_'
+            'Equal_Area\"],PARAMETER[\"latitude_of_center\",45],PARAMETER[\"'
+            'longitude_of_center\",-100],PARAMETER[\"false_easting\",0],'
+            'PARAMETER[\"false_northing\",0],UNIT[\"metre\",1],AXIS[\"Easting'
+            '\",EAST],AXIS[\"Northing\",NORTH]]'
+        ),
         "transform": [
             30.0, 0.0, -4410000.000000002, 0.0, -30.0, 4309999.999999999, 0.0,
             0.0, 1.0
@@ -707,4 +721,9 @@ FILE_SIZES = {
 }
 
 DOI = "10.1201/b11964-24"
-CITATION = "Latifovic, Rasim & Homer, Collin & Ressl, Rainer & Pouliot, D.A. & Hossian, S. & Colditz, Rene & Olthof, Ian & Chandra, Giri & Victoria, Arturo. (2012). North American Land Change Monitoring System. Remote Sensing of Land Use and Land Cover: Principles and Applications. 303-324. 10.1201/b11964-24."
+CITATION = (
+    "Latifovic, Rasim & Homer, Collin & Ressl, Rainer & Pouliot, D.A."
+    " & Hossian, S. & Colditz, Rene & Olthof, Ian & Chandra, Giri & Victoria,"
+    " Arturo. (2012). North American Land Change Monitoring System. Remote"
+    " Sensing of Land Use and Land Cover: Principles and Applications."
+    " 303-324. 10.1201/b11964-24.")

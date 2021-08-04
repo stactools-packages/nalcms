@@ -1,7 +1,7 @@
 from stactools.cli import Registry
 import stactools.core
 
-from stactools.nalcms import commands, constants, stac  #assets,
+from stactools.nalcms import commands, constants, stac
 
 stactools.core.use_fsspec()
 
