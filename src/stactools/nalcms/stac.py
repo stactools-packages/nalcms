@@ -10,7 +10,7 @@ from pystac import (Collection, Asset, Extent, SpatialExtent, TemporalExtent, Ca
 from pystac.extensions.projection import (SummariesProjectionExtension, ProjectionExtension)
 from pystac.extensions.scientific import ScientificExtension
 # from pystac.extensions.raster import RasterExtension
-from pystac.extensions.file import FileExtension
+# from pystac.extensions.file import FileExtension
 from pystac.item import Item
 from pystac.summaries import Summaries
 from pystac.utils import str_to_datetime
@@ -19,7 +19,7 @@ from stactools.nalcms.constants import (
     CITATION,
     COLLECTION_ID,
     DOI,
-    FILE_SIZES,
+    # FILE_SIZES,
     SPATIAL_EXTENTS,
     GSDS,
     HREFS_ZIP,
@@ -237,9 +237,9 @@ def create_item(reg: str, gsd: Union[int, float], year: str, source: str) -> Uni
     # rast_ext.spatial_resolution = gsd
 
     # Include file information
-    file_ext = FileExtension.ext(data_asset, add_if_missing=True)
-    file_ext.size = FILE_SIZES[constants_key]
-    file_ext.values = values_change if "-" in year else values
+    # file_ext = FileExtension.ext(data_asset, add_if_missing=True)
+    # file_ext.size = FILE_SIZES[constants_key]
+    # file_ext.values = values_change if "-" in year else values
 
     return item
 

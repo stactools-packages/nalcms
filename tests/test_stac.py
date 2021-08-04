@@ -11,8 +11,8 @@ class TestSTAC(unittest.TestCase):
 
         self.assertEqual(item.id, f"{args['reg']}_{args['year']}_{args['gsd']}m")
 
-        for asset in item.assets.values():
-            self.assertIn(args["source"], asset.href)
+        asset_hrefs = [asset.href for asset in item.assets.values()]
+        self.assertIn(args["source"], asset_hrefs)
 
         item.validate()
 
