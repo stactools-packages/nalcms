@@ -1,6 +1,6 @@
 import os
 from typing import Any
-import click  # type: ignore
+import click
 import logging
 
 from stactools.nalcms import stac
