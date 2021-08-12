@@ -1,5 +1,5 @@
 import os
-from typing import Any, Union
+from typing import Any
 import click  # type: ignore
 import logging
 
@@ -83,8 +83,7 @@ def create_nalcms_command(cli: Any) -> Any:
                   help="The year or range of years covered by the STAC Item.",
                   type=click.Choice(list(set(sum(YEARS.values(), [])))),
                   default="2010-2015")
-    def create_item_command(destination: str, source: str, region: str, gsd: str,
-                            year: str) -> Any:
+    def create_item_command(destination: str, source: str, region: str, gsd: str, year: str) -> Any:
         """Creates a STAC Item
         Args:
             destination (str): The output directory for the STAC json.

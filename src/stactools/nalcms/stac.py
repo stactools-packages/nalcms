@@ -2,7 +2,7 @@ import logging
 import os
 from shapely.geometry import box
 import itertools as it
-from typing import Any, Iterable, List, Union, cast
+from typing import Any, List, Union
 
 from pystac import (Collection, Asset, Extent, SpatialExtent, TemporalExtent, CatalogType,
                     MediaType)
