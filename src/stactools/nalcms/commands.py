@@ -76,7 +76,7 @@ def create_nalcms_command(cli: Any) -> Any:
                   help="The region covered by the STAC Item.",
                   type=click.Choice(REGIONS.keys(), case_sensitive=False),
                   default="NA")
-    @click.option("-g", "--gsd", required=False, type=click.Choice(GSDS), default=30)
+    @click.option("-g", "--gsd", required=False, type=click.Choice(GSDS), default="30")
     @click.option("-y",
                   "--year",
                   required=False,
