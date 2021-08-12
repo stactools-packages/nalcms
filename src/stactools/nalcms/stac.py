@@ -85,7 +85,7 @@ def create_nalcms_collection() -> Collection:
         extent=extent,
         summaries=Summaries({
             "platform":
-            sum([v["platform"] for v in cast(Iterable[Any], SATELLITES.values())], []),
+            sum([v["platform"] for v in SATELLITES.values()], []),
             "instruments":
             sum([v["instruments"] for v in SATELLITES.values()], []),
             "constellation":
@@ -161,7 +161,7 @@ def create_region_collection(reg: str) -> Collection:
     return collection
 
 
-def create_item(reg: str, gsd: Union[int, float], year: str, source: str) -> Union[Item, None]:
+def create_item(reg: str, gsd: str, year: str, source: str) -> Union[Item, None]:
     """Creates a STAC Item
     TODO
     """
