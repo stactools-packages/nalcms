@@ -9,8 +9,8 @@ from pystac import (Collection, Asset, Extent, SpatialExtent, TemporalExtent, Ca
 
 from pystac.extensions.projection import (SummariesProjectionExtension, ProjectionExtension)
 from pystac.extensions.scientific import ScientificExtension
-# from pystac.extensions.raster import RasterExtension
-# from pystac.extensions.file import FileExtension
+from pystac.extensions.raster import RasterExtension
+from pystac.extensions.file import FileExtension
 from pystac.item import Item
 from pystac.summaries import Summaries
 from pystac.utils import str_to_datetime
@@ -18,7 +18,10 @@ from pystac.utils import str_to_datetime
 from stactools.nalcms.constants import (
     CITATION,
     COLLECTION_ID,
+    DATA_TYPE,
     DOI,
+    FILE_SIZES,
+    NODATA,
     # FILE_SIZES,
     SPATIAL_EXTENTS,
     GSDS,
@@ -125,8 +128,10 @@ def create_nalcms_collection() -> Collection:
 
 
 def create_region_collection(reg: str) -> Collection:
-    """
-    TODO
+    """Returns a collection for one region.
+
+    Args:
+        reg (str): The region of choice.    
     """
     extents = [v for k, v in SPATIAL_EXTENTS.items() if reg in k]
     extent = Extent(
@@ -162,8 +167,15 @@ def create_region_collection(reg: str) -> Collection:
 
 
 def create_item(reg: str, gsd: str, year: str, source: str) -> Union[Item, None]:
-    """Creates a STAC Item
-    TODO
+    """Returns a STAC Item for a given (region, GSD, year) if that combination
+     exists in the dataset, else None.
+
+    Args:
+        reg (str): The Region.
+        gsd (str): The GSD [m].
+        year (str): The year or difference in years (e.g. "2010-2015").
+        source (str): The path to the corresponding COG to be included as an
+         asset.
     """
     constants_key = f"{gsd}m_{year}_{reg}"
 
@@ -231,15 +243,15 @@ def create_item(reg: str, gsd: str, year: str, source: str) -> Union[Item, None]
     proj_ext.shape = PROJECTIONS[constants_key]["shape"]
 
     # Include raster information
-    # rast_ext = RasterExtension.ext(data_asset, add_if_missing=True)
-    # rast_ext.nodata = NODATA[constants_key]
-    # rast_ext.data_type = DATA_TYPE[constants_key]
-    # rast_ext.spatial_resolution = gsd
+    rast_ext = RasterExtension.ext(data_asset, add_if_missing=True)
+    rast_ext.nodata = NODATA[constants_key]
+    rast_ext.data_type = DATA_TYPE[constants_key]
+    rast_ext.spatial_resolution = gsd
 
     # Include file information
-    # file_ext = FileExtension.ext(data_asset, add_if_missing=True)
-    # file_ext.size = FILE_SIZES[constants_key]
-    # file_ext.values = values_change if "-" in year else values
+    file_ext = FileExtension.ext(data_asset, add_if_missing=True)
+    file_ext.size = FILE_SIZES[constants_key]
+    file_ext.values = values_change if "-" in year else values
 
     return item
 
