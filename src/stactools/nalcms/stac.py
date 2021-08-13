@@ -243,11 +243,11 @@ def create_item(reg: str, gsd: str, year: str, source: str) -> Union[Item, None]
     proj_ext.shape = PROJECTIONS[constants_key]["shape"]
 
     # Include raster information
-    rast_band = RasterBand.create(
-        nodata=NODATA[constants_key],
-        sampling="area",
-        data_type=DATA_TYPE[constants_key],
-        spatial_resolution=float(gsd))
+    sampling: Any = ["area"]
+    rast_band = RasterBand.create(nodata=NODATA[constants_key],
+                                  sampling=sampling[0],
+                                  data_type=DATA_TYPE[constants_key],
+                                  spatial_resolution=float(gsd))
     rast_ext = RasterExtension.ext(data_asset, add_if_missing=True)
     rast_ext.bands = [rast_band]
 

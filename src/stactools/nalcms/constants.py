@@ -585,7 +585,7 @@ NODATA = {
     '30m_2010_MEX': -128.0,
 }
 
-DATA_TYPE = {
+DATA_TYPE: Any = {
     '30m_2010-2015_NA': 'uint16',
     '30m_2010-2015_USA': 'uint16',
     '30m_2010-2015_MEX': 'uint16',
