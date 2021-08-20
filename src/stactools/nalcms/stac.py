@@ -93,8 +93,7 @@ def create_nalcms_collection() -> Collection:
             sum([v["instruments"] for v in SATELLITES.values()], []),
             "constellation":
             sum([v["constellation"] for v in SATELLITES.values()], []),
-            "gsd":
-            GSDS,
+            "gsd": [float(gsd) for gsd in GSDS],
         }),
     )
 
@@ -153,8 +152,7 @@ def create_region_collection(reg: str) -> Collection:
             sum([v["instruments"] for v in SATELLITES.values()], []),
             "constellation":
             sum([v["constellation"] for v in SATELLITES.values()], []),
-            "gsd":
-            GSDS,
+            "gsd": [float(gsd) for gsd in GSDS],
         }),
     )
 
@@ -196,7 +194,7 @@ def create_item(reg: str, gsd: str, year: str, source: str) -> Union[Item, None]
         "description": f"Land cover {diff}for {year} over {REGIONS[reg]} ({gsd} m)",
         "start_datetime": f"{years[0]}-01-01T00:00:00Z",
         "end_datetime": f"{years[-1]}-12-31T00:00:00Z",
-        "gsd": gsd,
+        "gsd": float(gsd),
     }
 
     # Create item
