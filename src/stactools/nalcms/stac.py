@@ -9,8 +9,8 @@ from pystac import (Collection, Asset, Extent, SpatialExtent, TemporalExtent, Ca
 
 from pystac.extensions.projection import (SummariesProjectionExtension, ProjectionExtension)
 from pystac.extensions.scientific import ScientificExtension
-# from pystac.extensions.raster import RasterExtension
-# from pystac.extensions.file import FileExtension
+from pystac.extensions.raster import RasterExtension, RasterBand
+from pystac.extensions.file import FileExtension
 from pystac.item import Item
 from pystac.summaries import Summaries
 from pystac.utils import str_to_datetime
@@ -18,7 +18,10 @@ from pystac.utils import str_to_datetime
 from stactools.nalcms.constants import (
     CITATION,
     COLLECTION_ID,
+    DATA_TYPE,
     DOI,
+    FILE_SIZES,
+    NODATA,
     # FILE_SIZES,
     SPATIAL_EXTENTS,
     GSDS,
@@ -43,11 +46,11 @@ from stactools.nalcms.constants import (
 
 logger = logging.getLogger(__name__)
 
-values: Any = [{"value": [i], "summary": s} for i, s in VALUES.items()]
-values_change: Any = [{
-    "value": [int(f"{v1}{str(v2).zfill(2)}")],
-    "summary": f'"{VALUES[v1]}" to "{VALUES[v2]}"'
-} for v1, v2 in it.product(VALUES.keys(), VALUES.keys())]
+values: List[Any] = [dict(values=[i], summary=s) for i, s in VALUES.items()]
+values_change: List[Any] = [
+    dict(values=[int(f"{v1}{str(v2).zfill(2)}")], summary=f'"{VALUES[v1]}" to "{VALUES[v2]}"')
+    for v1, v2 in it.product(VALUES.keys(), VALUES.keys())
+]
 
 
 def create_nalcms_collection() -> Collection:
@@ -90,8 +93,7 @@ def create_nalcms_collection() -> Collection:
             sum([v["instruments"] for v in SATELLITES.values()], []),
             "constellation":
             sum([v["constellation"] for v in SATELLITES.values()], []),
-            "gsd":
-            GSDS,
+            "gsd": [float(gsd) for gsd in GSDS],
         }),
     )
 
@@ -125,8 +127,10 @@ def create_nalcms_collection() -> Collection:
 
 
 def create_region_collection(reg: str) -> Collection:
-    """
-    TODO
+    """Returns a STAC Collection for one region.
+
+    Args:
+        reg (str): The region of choice.
     """
     extents = [v for k, v in SPATIAL_EXTENTS.items() if reg in k]
     extent = Extent(
@@ -148,8 +152,7 @@ def create_region_collection(reg: str) -> Collection:
             sum([v["instruments"] for v in SATELLITES.values()], []),
             "constellation":
             sum([v["constellation"] for v in SATELLITES.values()], []),
-            "gsd":
-            GSDS,
+            "gsd": [float(gsd) for gsd in GSDS],
         }),
     )
 
@@ -162,8 +165,15 @@ def create_region_collection(reg: str) -> Collection:
 
 
 def create_item(reg: str, gsd: str, year: str, source: str) -> Union[Item, None]:
-    """Creates a STAC Item
-    TODO
+    """Returns a STAC Item for a given (region, GSD, year) if that combination
+     exists in the dataset, else None.
+
+    Args:
+        reg (str): The Region.
+        gsd (str): The GSD [m].
+        year (str): The year or difference in years (e.g. "2010-2015").
+        source (str): The path to the corresponding COG to be included as an
+         asset.
     """
     constants_key = f"{gsd}m_{year}_{reg}"
 
@@ -184,7 +194,7 @@ def create_item(reg: str, gsd: str, year: str, source: str) -> Union[Item, None]
         "description": f"Land cover {diff}for {year} over {REGIONS[reg]} ({gsd} m)",
         "start_datetime": f"{years[0]}-01-01T00:00:00Z",
         "end_datetime": f"{years[-1]}-12-31T00:00:00Z",
-        "gsd": gsd,
+        "gsd": float(gsd),
     }
 
     # Create item
@@ -202,7 +212,7 @@ def create_item(reg: str, gsd: str, year: str, source: str) -> Union[Item, None]
         "metadata",
         Asset(
             href=metadata_href,
-            media_type=MediaType.JSON,
+            media_type="application/vnd.ms-word.document",
             roles=["metadata"],
             title=f"Metadata for land cover {diff}for {year} ({gsd} m)",
         ),
@@ -231,15 +241,18 @@ def create_item(reg: str, gsd: str, year: str, source: str) -> Union[Item, None]
     proj_ext.shape = PROJECTIONS[constants_key]["shape"]
 
     # Include raster information
-    # rast_ext = RasterExtension.ext(data_asset, add_if_missing=True)
-    # rast_ext.nodata = NODATA[constants_key]
-    # rast_ext.data_type = DATA_TYPE[constants_key]
-    # rast_ext.spatial_resolution = gsd
+    sampling: Any = ["area"]
+    rast_band = RasterBand.create(nodata=NODATA[constants_key],
+                                  sampling=sampling[0],
+                                  data_type=DATA_TYPE[constants_key],
+                                  spatial_resolution=float(gsd))
+    rast_ext = RasterExtension.ext(data_asset, add_if_missing=True)
+    rast_ext.bands = [rast_band]
 
     # Include file information
-    # file_ext = FileExtension.ext(data_asset, add_if_missing=True)
-    # file_ext.size = FILE_SIZES[constants_key]
-    # file_ext.values = values_change if "-" in year else values
+    file_ext = FileExtension.ext(data_asset, add_if_missing=True)
+    file_ext.size = FILE_SIZES[constants_key]
+    file_ext.values = values_change if "-" in year else values
 
     return item
 

@@ -85,6 +85,7 @@ def create_nalcms_command(cli: Any) -> Any:
                   default="2010-2015")
     def create_item_command(destination: str, source: str, region: str, gsd: str, year: str) -> Any:
         """Creates a STAC Item
+
         Args:
             destination (str): The output directory for the STAC json.
             source (str): The input COG to create the item from.
