@@ -2,9 +2,10 @@ import os
 from typing import Any
 import click
 import logging
+import itertools as it
 
 from stactools.nalcms import stac
-from stactools.nalcms.constants import GSDS, REGIONS, YEARS
+from stactools.nalcms.constants import PERIODS, GSDS, REGIONS, YEARS
 from stactools.core.utils.convert import cogify
 
 logger = logging.getLogger(__name__)
@@ -40,15 +41,15 @@ def create_nalcms_command(cli: Any) -> Any:
         """
         root_col = stac.create_nalcms_collection()
 
-        for reg in REGIONS.keys():
-            region = stac.create_region_collection(reg)
-            root_col.add_child(region)
+        for per, years in PERIODS.items():
+            combos = it.product(REGIONS.keys(), GSDS, years)
+            period = stac.create_period_collection(per)
+            root_col.add_child(period)
 
-            for gsd in GSDS:
-                for year in YEARS[gsd]:
-                    item = stac.create_item(reg, gsd, year, "")
-                    if item:
-                        region.add_item(item)
+            for reg, gsd, year in combos:
+                item = stac.create_item(reg, gsd, year, "")
+                if item is not None:
+                    period.add_item(item)
 
         root_col.normalize_hrefs(destination)
         root_col.save()
