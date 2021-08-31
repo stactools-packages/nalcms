@@ -43,9 +43,11 @@ item = stac.create_item("CAN", "30", "2010", source="path/to/cog.tif")
 2. Using the CLI
 
 ```bash
-scripts/stac nalcms create-collection ./examples/
+scripts/stac nalcms create-collection -d ./examples/
 
-scripts/stac nalcms create-item ./examples/
+scripts/stac nalcms create-item -d ./examples/
+
+scripts/stac nalcms create-cog -s ./examples/image.tif -d ./examples/
 ```
 
 Use `scripts/stac nalcms --help` to see all subcommands and options.
