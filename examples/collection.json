@@ -1,82 +1,97 @@
 {
   "type": "Collection",
-  "id": "nalcms",
+  "id": "NALCMS_yearly",
   "stac_version": "1.0.0",
-  "description": "Land Cover change maps shows class transitions from 2010 to 2015 over Canada, Alaska, the conterminous United States, and Mexico. Changes have been assessed from Land Cover maps at 30 meters resolution.",
+  "description": "Land classification, yearly",
   "links": [
     {
       "rel": "root",
-      "href": "./collection.json",
+      "href": "../collection.json",
       "type": "application/json"
     },
     {
-      "rel": "self",
-      "href": "/home/james/Projects/Community/STAC/stactools/nalcms/examples/collection.json",
+      "rel": "item",
+      "href": "./CAN_2010_30m/CAN_2010_30m.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "item",
+      "href": "./CAN_2015_30m/CAN_2015_30m.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "item",
+      "href": "./USA_2010_30m/USA_2010_30m.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "item",
+      "href": "./USA_2015_30m/USA_2015_30m.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "item",
+      "href": "./MEX_2010_30m/MEX_2010_30m.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "item",
+      "href": "./MEX_2015_30m/MEX_2015_30m.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "item",
+      "href": "./NA_2010_30m/NA_2010_30m.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "item",
+      "href": "./NA_2015_30m/NA_2015_30m.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "item",
+      "href": "./NA_2005_250m/NA_2005_250m.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "item",
+      "href": "./NA_2010_250m/NA_2010_250m.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "item",
+      "href": "./ASK_2010_30m/ASK_2010_30m.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "item",
+      "href": "./ASK_2015_30m/ASK_2015_30m.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "item",
+      "href": "./HI_2005_250m/HI_2005_250m.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "../collection.json",
       "type": "application/json"
     }
   ],
   "stac_extensions": [
-    "https://stac-extensions.github.io/item-assets/v1.0.0/schema.json"
+    "https://stac-extensions.github.io/projection/v1.0.0/schema.json"
   ],
-  "item_assets": {
-    "landcover_change_30m": {
-      "title": "Land Cover Change 30m, 2010-2015 (Landsat)",
-      "description": "This map demonstrates land cover change between 2010 and 2015 in North America at a spatial resolution of 30 meters. The dataset shows the 2010-2015 changes between the nineteen Level II land cover classes, which were defined using the Land Cover Classification System (LCCS) standard developed by the Food and Agriculture Organization (FAO) of United Nations.",
-      "type": "image/tiff; application=geotiff; profile=cloud-optimized",
-      "roles": [
-        "data"
-      ]
-    },
-    "landcover_2015_30m": {
-      "title": "Land Cover 30m, 2015 (Landsat and RapidEye)",
-      "description": "This map of North American land cover at a spatial resolution of 30 meters provides a harmonized view of the physical cover of Earth\u2019s surface across the continent based on 2015 Landsat satellite imagery for Canada and the United States, and RapidEye imagery for Mexico. Nineteen Level II land cover classes were defined using the Land Cover Classification System (LCCS) standard developed by the Food and Agriculture Organization (FAO) of the United Nations.",
-      "type": "image/tiff; application=geotiff; profile=cloud-optimized",
-      "roles": [
-        "data"
-      ]
-    },
-    "landcover_2010_30m": {
-      "title": "Land Cover, 2010 (Landsat, 30m)",
-      "description": "This map of North American land cover at a spatial resolution of 30 meters provides a harmonized view of the physical cover of Earth\u2019s surface across the continent based on 2010 Landsat satellite imagery. Nineteen Level II land cover classes were defined using the Land Cover Classification System (LCCS) standard developed by the Food and Agriculture Organization (FAO) of United Nations.",
-      "type": "image/tiff; application=geotiff; profile=cloud-optimized",
-      "roles": [
-        "data"
-      ]
-    },
-    "landcover_change_250m": {
-      "title": "Land Cover Change, 2005-2010 (MODIS, 250m)",
-      "description": "This map demonstrates land cover change between 2005 and 2010 in North America at a spatial resolution of 250 meters. The dataset shows the 2005-2010 changes between the nineteen Level II land cover classes, which were defined using the Land Cover Classification System (LCCS) standard developed by the Food and Agriculture Organization (FAO) of United Nations.",
-      "type": "image/tiff; application=geotiff; profile=cloud-optimized",
-      "roles": [
-        "data"
-      ]
-    },
-    "landcover_2010_250m": {
-      "title": "Land Cover, 2010 (MODIS, 250m)",
-      "description": "This map of North American land cover at a spatial resolution of 250 meters provides a harmonized view of the physical cover of Earth\u2019s surface across the continent based on 2010 Moderate Resolution Imaging Spectroradiometer (MODIS) satellite imagery. Nineteen Level II land cover classes were defined using the Land Cover Classification System (LCCS) standard developed by the Food and Agriculture Organization (FAO) of United Nations.",
-      "type": "image/tiff; application=geotiff; profile=cloud-optimized",
-      "roles": [
-        "data"
-      ]
-    },
-    "landcover_2005_250m": {
-      "title": "Land Cover, 2005 (MODIS, 250m)",
-      "description": "This map of North American land cover at a spatial resolution of 250 meters provides a harmonized view of the physical cover of Earth\u2019s surface across the continent based on 2005 Moderate Resolution Imaging Spectroradiometer (MODIS) satellite imagery. Nineteen Level II land cover classes were defined using the Land Cover Classification System (LCCS) standard developed by the Food and Agriculture Organization (FAO) of United Nations.",
-      "type": "image/tiff; application=geotiff; profile=cloud-optimized",
-      "roles": [
-        "data"
-      ]
-    }
-  },
-  "title": "North American Land Change Monitoring System data",
+  "title": "NALCMS, yearly",
   "extent": {
     "spatial": {
       "bbox": [
         [
-          -170.0,
-          -50.0,
-          84.0,
-          14.0
+          1.4279751101491476,
+          -160.08863641682973,
+          76.46819003404057,
+          4.00508993290567
         ]
       ]
     },
@@ -90,103 +105,144 @@
     }
   },
   "license": "proprietary",
-  "providers": [
-    {
-      "name": "Natural Resources Canada / Canada Centre Mapping and Earth Observation",
-      "roles": [
-        "producer",
-        "processor"
-      ],
-      "url": "https://www.nrcan.gc.ca"
-    },
-    {
-      "name": "Instituto Nacional de Estad\u00edstica y Geograf\u00eda",
-      "roles": [
-        "producer",
-        "processor"
-      ],
-      "url": "https://www.inegi.org.mx/"
-    },
-    {
-      "name": "Comisi\u00f3n Nacional Forestal",
-      "roles": [
-        "producer",
-        "processor"
-      ],
-      "url": "https://www.gob.mx/conafor"
-    },
-    {
-      "name": "U.S. Geological Survey",
-      "roles": [
-        "producer",
-        "processor"
-      ],
-      "url": "https://www.usgs.gov"
-    },
-    {
-      "name": "Commission for Environmental Cooperation",
-      "roles": [
-        "producer",
-        "processor"
-      ],
-      "url": "http://www.cec.org/north-american-environmental-atlas/"
-    }
-  ],
-  "assets": {
-    "30m_2010-2015 metadata": {
-      "href": "http://www.cec.org/wp-content/uploads/wpallimport/files/Atlas/Files/land_cover_30m_2010-2015_landsat/metadata_nalcms_2010_2015_30m.doc",
-      "type": "application/msword",
-      "title": "NALCMS 30m_2010-2015 Metadata",
-      "description": "NALCMS created metadata.",
-      "roles": [
-        "metadata"
-      ]
-    },
-    "30m_2015 metadata": {
-      "href": "http://www.cec.org/wp-content/uploads/wpallimport/files/Atlas/Files/2010nalcms30m/nalcms_2015_30m_metadata_v2.doc",
-      "type": "application/msword",
-      "title": "NALCMS 30m_2015 Metadata",
-      "description": "NALCMS created metadata.",
-      "roles": [
-        "metadata"
-      ]
-    },
-    "30m_2010 metadata": {
-      "href": "http://www.cec.org/wp-content/uploads/wpallimport/files/Atlas/Files/2010nalcms30m/nalcms_2010_30m_metadata.doc",
-      "type": "application/msword",
-      "title": "NALCMS 30m_2010 Metadata",
-      "description": "NALCMS created metadata.",
-      "roles": [
-        "metadata"
-      ]
-    },
-    "250m_2005-2010 metadata": {
-      "href": "http://www.cec.org/wp-content/uploads/wpallimport/files/Atlas/Files/Land_Cover_05_10/Metadata_NALCMS_2005_2010.doc",
-      "type": "application/msword",
-      "title": "NALCMS 250m_2005-2010 Metadata",
-      "description": "NALCMS created metadata.",
-      "roles": [
-        "metadata"
-      ]
-    },
-    "250m_2010 metadata": {
-      "href": "http://www.cec.org/wp-content/uploads/wpallimport/files/Atlas/Files/Land_Cover_2010/Metadata_NALCMS_2010v2.doc",
-      "type": "application/msword",
-      "title": "NALCMS 250m_2010 Metadata",
-      "description": "NALCMS created metadata.",
-      "roles": [
-        "metadata"
-      ]
-    },
-    "250m_2005 metadata": {
-      "href": "http://www.cec.org/wp-content/uploads/wpallimport/files/Atlas/Files/Land_Cover_2005/Metadata_NALCMS_2005_v3.doc",
-      "type": "application/msword",
-      "title": "NALCMS 250m_2005 Metadata",
-      "description": "NALCMS created metadata.",
-      "roles": [
-        "metadata"
-      ]
-    }
+  "summaries": {
+    "platform": [
+      "Terra",
+      "Aqua",
+      "Landsat 7",
+      "RapidEye"
+    ],
+    "instruments": [
+      "MODIS",
+      "ETM+",
+      "REIS"
+    ],
+    "constellation": [
+      "A-Train",
+      "RapidEye"
+    ],
+    "gsd": [
+      30.0,
+      250.0
+    ],
+    "file:values": [
+      {
+        "values": [
+          1
+        ],
+        "summary": "Temperate or sub-polar needleleaf forest"
+      },
+      {
+        "values": [
+          2
+        ],
+        "summary": "Sub-polar taiga needleleaf forest"
+      },
+      {
+        "values": [
+          3
+        ],
+        "summary": "Tropical or sub-tropical broadleaf evergreen forest"
+      },
+      {
+        "values": [
+          4
+        ],
+        "summary": "Tropical or sub-tropical broadleaf deciduous forest"
+      },
+      {
+        "values": [
+          5
+        ],
+        "summary": "Temperate or sub-polar broadleaf deciduous forest"
+      },
+      {
+        "values": [
+          6
+        ],
+        "summary": "Mixed forest"
+      },
+      {
+        "values": [
+          7
+        ],
+        "summary": "Tropical or sub-tropical shrubland"
+      },
+      {
+        "values": [
+          8
+        ],
+        "summary": "Temperate or sub-polar shrubland"
+      },
+      {
+        "values": [
+          9
+        ],
+        "summary": "Tropical or sub-tropical grassland"
+      },
+      {
+        "values": [
+          10
+        ],
+        "summary": "Temperate or sub-polar grassland"
+      },
+      {
+        "values": [
+          11
+        ],
+        "summary": "Sub-polar or polar shrubland-lichen-moss"
+      },
+      {
+        "values": [
+          12
+        ],
+        "summary": "Sub-polar or polar grassland-lichen-moss"
+      },
+      {
+        "values": [
+          13
+        ],
+        "summary": "Sub-polar or polar barren-lichen-moss"
+      },
+      {
+        "values": [
+          14
+        ],
+        "summary": "Wetland"
+      },
+      {
+        "values": [
+          15
+        ],
+        "summary": "Cropland"
+      },
+      {
+        "values": [
+          16
+        ],
+        "summary": "Barren lands"
+      },
+      {
+        "values": [
+          17
+        ],
+        "summary": "Urban and built-up"
+      },
+      {
+        "values": [
+          18
+        ],
+        "summary": "Water"
+      },
+      {
+        "values": [
+          19
+        ],
+        "summary": "Snow and ice"
+      }
+    ],
+    "proj:epsg": [
+      null
+    ]
   }
 }
-

@@ -1,0 +1,268 @@
+{
+  "type": "Feature",
+  "stac_version": "1.0.0",
+  "id": "NA_2005_250m",
+  "properties": {
+    "title": "NA land cover (2005, 250 m)",
+    "description": "Land cover for 2005 over North America (250 m)",
+    "start_datetime": "2005-01-01T00:00:00Z",
+    "end_datetime": "2005-12-31T00:00:00Z",
+    "gsd": 250.0,
+    "proj:epsg": null,
+    "proj:transform": [
+      250.0,
+      0.0,
+      -4418000.0,
+      0.0,
+      -250.0,
+      4876500.0,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:bbox": [
+      -4418000.0,
+      -3873500.0,
+      4832000.0,
+      4876500.0
+    ],
+    "proj:wkt2": "PROJCS[\"Sphere_ARC_INFO_Lambert_Azimuthal_Equal_Area\",GEOGCS[\"GCS_Sphere_ARC_INFO\",DATUM[\"D_Sphere_ARC_INFO\",SPHEROID[\"Sphere_ARC_INFO\",6370997,0]],PRIMEM[\"Greenwich\",0],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]]],PROJECTION[\"Lambert_Azimuthal_Equal_Area\"],PARAMETER[\"latitude_of_center\",45],PARAMETER[\"longitude_of_center\",-100],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]",
+    "proj:shape": [
+      35000,
+      37000
+    ],
+    "label:type": "raster",
+    "label:tasks": [
+      "classification"
+    ],
+    "label:properties": null,
+    "label:description": "",
+    "label:classes": [
+      {
+        "classes": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ],
+        "name": ""
+      }
+    ],
+    "datetime": "2005-01-01T00:00:00Z"
+  },
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          48.812750584693504,
+          -137.9896823788992
+        ],
+        [
+          48.812750584693504,
+          4.00508993290567
+        ],
+        [
+          1.4279751101491476,
+          4.00508993290567
+        ],
+        [
+          1.4279751101491476,
+          -137.9896823788992
+        ],
+        [
+          48.812750584693504,
+          -137.9896823788992
+        ]
+      ]
+    ]
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "../../collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "../collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "../collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "metadata": {
+      "href": "http://www.cec.org/wp-content/uploads/wpallimport/files/Atlas/Files/Land_Cover_2005/Metadata_NALCMS_2005_v3.doc",
+      "type": "application/vnd.ms-word.document",
+      "title": "Metadata for land cover for 2005 (250 m)",
+      "roles": [
+        "metadata"
+      ]
+    },
+    "data": {
+      "href": "http://www.cec.org/wp-content/uploads/wpallimport/files/Atlas/Files/Land_Cover_2005/Land_Cover_2005v3_TIFF.zip",
+      "type": "application/zip",
+      "title": "Data for land cover over North America for 2005 (250 m)",
+      "raster:bands": [
+        {
+          "nodata": 128.0,
+          "sampling": "area",
+          "data_type": "int16",
+          "spatial_resolution": 250.0
+        }
+      ],
+      "file:size": 76020586,
+      "file:values": [
+        {
+          "values": [
+            1
+          ],
+          "summary": "Temperate or sub-polar needleleaf forest"
+        },
+        {
+          "values": [
+            2
+          ],
+          "summary": "Sub-polar taiga needleleaf forest"
+        },
+        {
+          "values": [
+            3
+          ],
+          "summary": "Tropical or sub-tropical broadleaf evergreen forest"
+        },
+        {
+          "values": [
+            4
+          ],
+          "summary": "Tropical or sub-tropical broadleaf deciduous forest"
+        },
+        {
+          "values": [
+            5
+          ],
+          "summary": "Temperate or sub-polar broadleaf deciduous forest"
+        },
+        {
+          "values": [
+            6
+          ],
+          "summary": "Mixed forest"
+        },
+        {
+          "values": [
+            7
+          ],
+          "summary": "Tropical or sub-tropical shrubland"
+        },
+        {
+          "values": [
+            8
+          ],
+          "summary": "Temperate or sub-polar shrubland"
+        },
+        {
+          "values": [
+            9
+          ],
+          "summary": "Tropical or sub-tropical grassland"
+        },
+        {
+          "values": [
+            10
+          ],
+          "summary": "Temperate or sub-polar grassland"
+        },
+        {
+          "values": [
+            11
+          ],
+          "summary": "Sub-polar or polar shrubland-lichen-moss"
+        },
+        {
+          "values": [
+            12
+          ],
+          "summary": "Sub-polar or polar grassland-lichen-moss"
+        },
+        {
+          "values": [
+            13
+          ],
+          "summary": "Sub-polar or polar barren-lichen-moss"
+        },
+        {
+          "values": [
+            14
+          ],
+          "summary": "Wetland"
+        },
+        {
+          "values": [
+            15
+          ],
+          "summary": "Cropland"
+        },
+        {
+          "values": [
+            16
+          ],
+          "summary": "Barren lands"
+        },
+        {
+          "values": [
+            17
+          ],
+          "summary": "Urban and built-up"
+        },
+        {
+          "values": [
+            18
+          ],
+          "summary": "Water"
+        },
+        {
+          "values": [
+            19
+          ],
+          "summary": "Snow and ice"
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "bbox": [
+    1.4279751101491476,
+    -137.9896823788992,
+    48.812750584693504,
+    4.00508993290567
+  ],
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v1.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.0.0/schema.json",
+    "https://stac-extensions.github.io/file/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/label/v1.0.0/schema.json"
+  ],
+  "collection": "NALCMS_yearly"
+}
