@@ -11,6 +11,12 @@ from pystac.extensions.projection import (SummariesProjectionExtension, Projecti
 from pystac.extensions.scientific import ScientificExtension
 from pystac.extensions.raster import RasterExtension, RasterBand
 from pystac.extensions.file import FileExtension
+from pystac.extensions.label import (
+    LabelClasses,
+    LabelExtension,
+    LabelTask,
+    LabelType,
+)
 from pystac.item import Item
 from pystac.summaries import Summaries
 from pystac.utils import str_to_datetime
@@ -22,6 +28,7 @@ from stactools.nalcms.constants import (
     DOI,
     FILE_SIZES,
     NODATA,
+    PERIODS,
     # FILE_SIZES,
     SPATIAL_EXTENTS,
     GSDS,
@@ -126,23 +133,24 @@ def create_nalcms_collection() -> Collection:
     return collection
 
 
-def create_region_collection(reg: str) -> Collection:
-    """Returns a STAC Collection for one region.
+def create_period_collection(period: str) -> Collection:
+    """Returns a STAC Collection for yearly land classifications or change between years.
 
     Args:
-        reg (str): The region of choice.
+        period (str): "yearly" or "change".
     """
-    extents = [v for k, v in SPATIAL_EXTENTS.items() if reg in k]
+    years = PERIODS[period]
+    extents = [v for k, v in SPATIAL_EXTENTS.items() if k.split("_")[1] in years]
     extent = Extent(
         SpatialExtent([bounding_extent(extents)]),
         TemporalExtent(TEMPORAL_EXTENT),
     )
 
     collection = Collection(
-        id=f"NALCMS_{reg}",
-        description=f"Land classification for {REGIONS[reg]}",
+        id=f"NALCMS_{period}",
+        description=f"Land classification, {period}",
         extent=extent,
-        title=f"NALCMS for {REGIONS[reg]}",
+        title=f"NALCMS, {period}",
         license=COLLECTION_LICENSE,
         stac_extensions=["https://stac-extensions.github.io/projection/v1.0.0/schema.json"],
         summaries=Summaries({
@@ -153,13 +161,21 @@ def create_region_collection(reg: str) -> Collection:
             "constellation":
             sum([v["constellation"] for v in SATELLITES.values()], []),
             "gsd": [float(gsd) for gsd in GSDS],
+            "file:values":
+            values_change if period == "change" else values
         }),
     )
 
-    # Include projection information
+    # Include projection summaries
     proj_ext = SummariesProjectionExtension(collection)
-    proj_ext.epsg = list(set([v['epsg'] for k, v in PROJECTIONS.items() if reg in k]))
-    # proj_ext.wkt = list(set([v['wkt'] for k, v in PROJECTIONS.items() if reg in k]))
+    proj_ext.epsg = list(
+        set([v['epsg'] for k, v in PROJECTIONS.items() if k.split("_")[1] in years]))
+    # proj_ext.wkt = list(set([v['wkt'] for k, v in PROJECTIONS.items()
+    # if k.split("_")[1] in years]))
+
+    # Include label summaries
+    # label_ext = SummariesLabelExtension(collection)
+    # label_ext.
 
     return collection
 
@@ -250,9 +266,25 @@ def create_item(reg: str, gsd: str, year: str, source: str) -> Union[Item, None]
     rast_ext.bands = [rast_band]
 
     # Include file information
+    vals = values_change if "-" in year else values
     file_ext = FileExtension.ext(data_asset, add_if_missing=True)
     file_ext.size = FILE_SIZES[constants_key]
-    file_ext.values = values_change if "-" in year else values
+    file_ext.values = vals
+
+    # Include label information
+    classes: List[Any] = sum([d["values"] for d in vals], [])
+    label_ext = LabelExtension.ext(item, add_if_missing=True)
+    label_ext.label_type = LabelType.RASTER
+    label_ext.label_tasks = [LabelTask.CLASSIFICATION]
+    label_ext.label_properties = None
+    label_ext.label_description = ""
+    label_ext.label_classes = [
+        # TODO: The STAC Label extension JSON Schema is incorrect.
+        # https://github.com/stac-extensions/label/pull/8
+        # https://github.com/stac-utils/pystac/issues/611
+        # When it is fixed, this should be None, not the empty string.
+        LabelClasses.create(classes, "")
+    ]
 
     return item
 
