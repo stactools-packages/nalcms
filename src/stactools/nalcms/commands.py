@@ -121,6 +121,11 @@ def create_nalcms_command(cli: Any) -> Any:
 
         output_path = os.path.join(destination, os.path.basename(source)[:-4] + "_cog.tif")
 
-        cogify(source, output_path)
+        args = [
+            "-co", "BLOCKSIZE=512", "-co", "compress=deflate", "-co", "predictor=yes", "-co",
+            "OVERVIEWS=IGNORE_EXISTING"
+        ]
+
+        cogify(source, output_path, args)
 
     return nalcms
