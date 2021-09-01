@@ -21,20 +21,22 @@ This package is intended to help describe the National Land Change Monitoring Sy
 
 ```python
 from stactools.nalcms import stac
-from stactools.nalcms.constants import GSDS, REGIONS, YEARS
+from stactools.nalcms.constants import PERIODS, GSDS, REGIONS, YEARS
 import os
+import itertools as it
 
 # Create the STAC
 root_col = stac.create_nalcms_collection()
-for reg in REGIONS.keys():
-    region = stac.create_region_collection(reg)
-    root_col.add_child(region)
 
-    for gsd in GSDS:
-        for year in YEARS[gsd]:
-            item = stac.create_item(reg, gsd, year, "")
-            if item:
-                region.add_item(item)
+for per, years in PERIODS.items():
+    combos = it.product(REGIONS.keys(), GSDS, years)
+    period = stac.create_period_collection(per)
+    root_col.add_child(period)
+
+    for reg, gsd, year in combos:
+        item = stac.create_item(reg, gsd, year, "")
+        if item is not None:
+            period.add_item(item)
 
 # Create a specific STAC Item
 item = stac.create_item("CAN", "30", "2010", source="path/to/cog.tif")
