@@ -173,9 +173,20 @@ def create_period_collection(period: str) -> Collection:
     # proj_ext.wkt = list(set([v['wkt'] for k, v in PROJECTIONS.items()
     # if k.split("_")[1] in years]))
 
-    # Include label summaries
-    # label_ext = SummariesLabelExtension(collection)
-    # label_ext.
+    # Include label information
+    vals = values_change if period == "change" else values
+    classes: List[Any] = sum([d["values"] for d in vals], [])
+    label_ext = LabelExtension.summaries(collection, add_if_missing=True)
+    label_ext.label_type = [LabelType.RASTER]
+    label_ext.label_tasks = [LabelTask.CLASSIFICATION]
+    label_ext.label_properties = None
+    label_ext.label_classes = [
+        # TODO: The STAC Label extension JSON Schema is incorrect.
+        # https://github.com/stac-extensions/label/pull/8
+        # https://github.com/stac-utils/pystac/issues/611
+        # When it is fixed, this should be None, not the empty string.
+        LabelClasses.create(classes, "")
+    ]
 
     return collection
 
