@@ -29,7 +29,6 @@ from stactools.nalcms.constants import (
     FILE_SIZES,
     NODATA,
     PERIODS,
-    # FILE_SIZES,
     SPATIAL_EXTENTS,
     GSDS,
     HREFS_ZIP,
@@ -107,14 +106,10 @@ def create_nalcms_collection() -> Collection:
     # Include projection information
     proj_ext = SummariesProjectionExtension(collection)
     proj_ext.epsg = list(set([v['epsg'] for v in PROJECTIONS.values()]))
-    # proj_ext.wkt = list(set([v['wkt'] for v in PROJECTIONS.values()]))
 
     scientific = ScientificExtension.ext(collection, add_if_missing=True)
     scientific.doi = DOI
     scientific.citation = CITATION
-
-    # item_assets = ItemAssetsExtension.ext(collection, add_if_missing=True)
-    # item_assets.item_assets = ITEM_ASSETS
 
     for metadata in HREFS_METADATA.items():
         collection.add_asset(
@@ -170,8 +165,6 @@ def create_period_collection(period: str) -> Collection:
     proj_ext = SummariesProjectionExtension(collection)
     proj_ext.epsg = list(
         set([v['epsg'] for k, v in PROJECTIONS.items() if k.split("_")[1] in years]))
-    # proj_ext.wkt = list(set([v['wkt'] for k, v in PROJECTIONS.items()
-    # if k.split("_")[1] in years]))
 
     # Include label information
     vals = values_change if period == "change" else values

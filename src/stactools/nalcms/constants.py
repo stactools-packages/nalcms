@@ -19,9 +19,7 @@ COLLECTION_DESCRIPTION = (
     " nineteen land cover classes are based on the Land Cover Classification"
     " System (LCCS) standard developed by the Food & Agriculture Organization"
     " (FAO) of the United Nations.")
-# [xmin, ymin, xmax, ymax]]
-# [west, east, noth, south]
-# SPATIAL_EXTENT = [-170.0, -50.0, 84.0, 14.0]
+
 TEMPORAL_EXTENT = [
     str_to_datetime("2005, 1, 1"),
     None,
@@ -94,7 +92,6 @@ HREFS_ZIP = {
     "30m_2010_ASK": "2010nalcms30m/united_states_2010.zip",
     "250m_2005-2010_NA": "Land_Cover_05_10/LC_05-10_change_TIFF.zip",
     "250m_2010_NA": "Land_Cover_2010/Land_Cover_2010v2_TIFF.zip",
-    # "250m_2010_HI": "Land_Cover_2010/Land_Cover_2010v2_TIFF.zip",
     "250m_2005_NA": "Land_Cover_2005/Land_Cover_2005v3_TIFF.zip",
     "250m_2005_HI": "Land_Cover_2005/Land_Cover_2005v3_TIFF.zip",
 }
@@ -527,6 +524,7 @@ SATELLITES: Dict[str, Any] = {
 }
 
 # [xmin, ymin, xmax, ymax]]
+# [west, east, noth, south]
 SPATIAL_EXTENTS = {
     '30m_2010-2015_NA':
     [6.039095198218554, -138.80536327065727, 61.779167675145786, -12.078890175164888],
