@@ -12,8 +12,7 @@ logger = logging.getLogger(__name__)
 
 
 def create_nalcms_command(cli: Any) -> Any:
-    """Creates the joint research centre - global surface water command line
-     utility."""
+    """Creates the North American Land Classification Monitoring System STAC."""
     @cli.group(
         "nalcms",
         short_help=("Commands for working with NALCMS data."),
@@ -36,8 +35,6 @@ def create_nalcms_command(cli: Any) -> Any:
         American Land Classification Monitoring System.
         Args:
             destination (str): Directory used to store the STAC collections.
-        Returns:
-            Callable
         """
         root_col = stac.create_nalcms_collection()
 

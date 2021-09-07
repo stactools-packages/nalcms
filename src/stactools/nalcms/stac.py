@@ -11,6 +11,7 @@ from pystac.extensions.projection import (SummariesProjectionExtension, Projecti
 from pystac.extensions.scientific import ScientificExtension
 from pystac.extensions.raster import RasterExtension, RasterBand
 from pystac.extensions.file import FileExtension
+from pystac.extensions.item_assets import AssetDefinition, ItemAssetsExtension
 from pystac.extensions.label import (
     LabelClasses,
     LabelExtension,
@@ -180,6 +181,43 @@ def create_period_collection(period: str) -> Collection:
         # When it is fixed, this should be None, not the empty string.
         LabelClasses.create(classes, "")
     ]
+
+    # Include Item Asset information
+    item_asset_ext = ItemAssetsExtension.ext(collection, add_if_missing=True)
+    item_asset_ext.item_assets = {
+        "metadata":
+        AssetDefinition(
+            dict(
+                types="application/vnd.ms-word.document",
+                roles=["metadata"],
+                title="NALCMS metadata",
+            )),
+        "landcover":
+        AssetDefinition({
+            "type":
+            "application/zip",
+            "roles": [
+                "data",
+                "labels",
+                "labels-raster",
+            ],
+            "title":
+            "NALCMS data",
+            "file:values": [{
+                "values": d["values"],
+                "summary": d["summary"]
+            } for d in vals],
+            "label:type":
+            label_ext.label_type[0],
+            "label:tasks":
+            label_ext.label_tasks,
+            "label:properties":
+            None,
+            "label:classes": [label_ext.label_classes[0].to_dict()],
+            "proj:epsg":
+            proj_ext.epsg[0]
+        })
+    }
 
     return collection
 
