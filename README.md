@@ -13,7 +13,7 @@
   - [file](https://github.com/stac-extensions/file/)
   - [scientific](https://github.com/stac-extensions/scientific/)
 
-This package is intended to help describe the National Land Change Monitoring System (NALCMS) data hosted by the Commission for Environmental Cooperation (CEC) as [STAC](https://github.com/stac-spec).
+This package is intended to help describe the North American Land Change Monitoring System (NALCMS) data hosted by the Commission for Environmental Cooperation (CEC) as [STAC](https://github.com/stac-spec).
 
 ## Usage
 
